@@ -1,0 +1,25 @@
+.TrashPage {
+
+    &__body {
+        
+
+        &_tabs {
+            display: flex;
+            align-items: center;
+
+            &_item {
+                margin: 0 5px;
+            }
+        }
+    }
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+
+        &_item {
+            margin: 0 5px;
+            margin-bottom: 10px;
+        }
+    }
+}

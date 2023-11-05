@@ -1,0 +1,31 @@
+.Modal__form_time {
+    position: relative;
+    margin-bottom: 20px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+    
+    .time-delete {
+        position: absolute;
+        top: calc(50% - 20px);
+        right: 0;
+        width: 40px;
+        height: 40px;
+        background-color: var(--red);
+        border-radius: 100%;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color:#fff;
+        font-size: 20px;
+        line-height: 100%;
+        transition: all .3s ease;
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+}

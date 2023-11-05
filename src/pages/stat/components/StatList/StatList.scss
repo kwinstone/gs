@@ -1,0 +1,12 @@
+.StatList {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #fff;
+
+    &__search {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+}

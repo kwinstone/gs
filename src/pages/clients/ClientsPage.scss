@@ -1,0 +1,124 @@
+.ClientsPage {
+
+    &__body {
+        position: relative;
+
+
+        &_filter.active {
+
+            .ClientsPage__body_filter_label {
+                span {
+                    transform: rotate(180deg);
+                }
+            }
+
+            .ClientsPage__body_filter_body {
+                display: block;
+            }
+        }
+
+        &_filter {
+            margin-bottom: 20px;
+            
+            &_in {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                position: relative;
+
+                &:after {
+                    position: absolute;
+                    top: calc(50% - 0.5px);
+                    left: 0;
+                    width: 100%;
+                    content: '';
+                    height: 1px;
+                    background-color: var(--violet);
+                }
+            }
+
+            &_label {
+                background-color: #F6F8FF;
+                color: var(--violet);
+                font-size: 18px;
+                line-height: 22px;
+                padding-right: 30px;
+                position: relative;
+                z-index: 2;
+                cursor: pointer;
+                user-select: none;
+
+                span {
+                    position: absolute;
+                    font-size: 20px;
+                    line-height: 20px;
+                    color: var(--violet);
+                    top: calc(50% - 7.5px);
+                    right: 7px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: all .3s ease;
+                }
+
+
+            }
+
+            &_body {
+                display: none;
+            }
+        }
+
+        &_pag {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &_top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+
+            &_search {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                max-width: 600px;
+            }
+
+            &_all {
+
+            }
+        }
+
+        &_table {
+            padding-bottom: 70px;
+        }
+
+        &_action {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: calc(100% - 355px);
+            padding-bottom: 30px;
+            padding-left: 40px;
+            padding-right: 40px;
+
+            .Button {
+                width: 49%;
+            }
+        }
+
+        &_action.fill {
+            width: calc(100% - 70px);
+        }
+    }
+
+    
+}

@@ -1,0 +1,25 @@
+.OrgItem {
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    height: 100%;
+    
+    &__img {
+        height: 175px;
+        overflow: hidden;
+        pointer-events: none;
+        touch-action: none;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: flex;
+        }
+    }
+
+    &__name {
+        padding: 15px 25px;
+        color: #666666;
+        font-weight: 600;
+    }
+}

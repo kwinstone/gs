@@ -1,0 +1,12 @@
+.gs-scroll {
+    &::-webkit-scrollbar {
+        width: 6px;
+        background-color: var(--bg);
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--light_violet);
+        border: 2px solid var(--violet); 
+        border-radius: 10px;
+    }
+}

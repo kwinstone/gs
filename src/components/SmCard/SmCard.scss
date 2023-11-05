@@ -1,0 +1,49 @@
+.SmCard.shadow {
+    box-shadow: 0px 0px 41px rgba(123, 153, 255, 0.15);
+}
+
+.SmCard {
+    background-color: #fff;
+    border-radius: 15px;
+    display: flex;
+    width: 260px;
+    flex: 0 0 auto;
+    padding: 10px;
+
+    &__img {
+        height: 100px;
+        width: 100px;
+        overflow: hidden;
+        flex: 0 0 auto;
+        border-radius: 10px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: flex;
+        }
+    }
+
+    &__body {
+        padding-left: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+        width: 200px;
+        &_name {
+            color: #666666;
+            font-weight: 500;
+            font-size: 19px;
+            line-height: 24px;
+        }
+
+        &_price {
+            color: var(--red);
+            font-weight: 600;
+            font-size: 19px;
+            line-height: 24px;
+        }
+    }
+}

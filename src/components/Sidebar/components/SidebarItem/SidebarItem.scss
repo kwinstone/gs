@@ -1,0 +1,176 @@
+.SidebarItem {
+
+    &__main.active + .SidebarItem__submenu {
+        .SidebarItem__main_label {
+            &_name {
+                // white-space: normal !important;
+            }
+        }
+    }
+    &__main.active {
+        background-color: #F6F8FF;
+
+        .SidebarItem__main_label {
+            color: var(--violet) !important;
+            &_icon {
+                transform: scale(1.2);
+
+                .icon-gs {
+                    svg {
+                        path {
+                            stroke: var(--violet) !important;
+                            // fill: var(--violet) !important;
+                        }
+                    }
+                }
+            }
+
+            &_name {
+               
+            }
+        }
+
+        
+        &:after {
+            width: 4px;
+        }
+    }
+    &__main {
+        transition: all .3s ease;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &:after {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 0px;
+            height: 100%;
+            transition: all .3s ease;
+            content: '';
+            background-color: var(--violet);
+        }
+
+        &:hover {
+            background-color: #F6F8FF;
+        }
+
+        &_label {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            line-height: 22px;
+            font-weight: 500;
+            color: rgba(0, 0, 0, 0.5) !important;
+            padding: 20px;
+            padding-right: 10px;
+            width: 100%;
+            
+
+            &_icon {
+                font-size: 22px;
+                line-height: 22px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 15px;
+                transition: all .3s ease;
+
+                .icon-gs {
+                    svg {
+                        path {
+                            // fill: rgba(0, 0, 0, 0.5) !important;
+                            stroke: rgba(0, 0, 0, 0.5) !important;
+                        }
+                    }
+                }
+            }
+
+            &_name {
+                // transition: all .3s ease;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap ;   
+            }
+
+        }
+
+        &_dropicon {
+            padding: 15px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            line-height: 22px;
+            color: rgba(0, 0, 0, 0.5);
+            transition: all .3s ease;
+            position: relative;
+            margin-right: 5px;
+            svg {
+                position: relative;
+                z-index: 2;
+             
+            }
+            &:after {
+                position: absolute; 
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 100%;
+                background-color: var(--light_violet);
+                content: '';
+                transform: scale(0);
+                transition: all .3s ease;
+            }
+
+            // &:hover {
+            //     color: #fff;
+
+            //     &:after {
+            //         transform: scale(1);
+            //     }
+            // }
+        }
+
+        &_dropicon.active {
+            transform: rotate(180deg);
+            // color: #fff;
+
+            // &:after {
+            //     transform: scale(1);
+            // }
+        }
+    }
+
+    &__submenu {
+        height: 0;
+        overflow: hidden;
+        transition: all .3s ease;
+
+        .SidebarItem {
+
+            &__main {
+
+                &_label {
+                    padding-left: 40px;
+                }
+            }
+        }
+    }
+
+    &__load {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 20px 0;
+    }
+
+    
+}

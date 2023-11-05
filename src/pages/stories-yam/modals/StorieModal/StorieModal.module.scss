@@ -1,0 +1,144 @@
+.wrapper {
+  width: 100%;
+  .close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 22px;
+    line-height: normal;
+    font-weight: 600;
+    cursor: pointer;
+    height: 100%;
+    
+    transition: all .2s ease;
+
+    &:hover {
+      color: var(--violet);
+    }
+  }
+  .close > svg {
+    margin-right: 15px;
+  }
+  .action {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .field {
+    height: 635px;
+    width: 350px;
+    border-radius: 21px;
+    overflow: hidden;
+    flex: 0 0 auto;
+
+    .img {
+      width: 100%;
+      height: 100%;
+      border: 1px solid green;
+      border-radius: 21px;
+      overflow: hidden;
+      background-color: #000;
+      position: relative;
+
+      .layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: grab;
+        user-select: none !important;
+        
+
+        &:after {
+          position: absolute;
+          content: '';
+          border: 1px dashed #fff;
+          box-shadow: 0 0 5px #000;
+          width: 120%;
+          height: 120%;
+          top: calc(50% - 60%);
+          left: calc(50% - 60%);
+        }
+      
+        &:active {
+          cursor: grabbing;
+        }
+      }
+
+      .mask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      img,video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: flex;
+        pointer-events: none;
+        touch-action: none;
+      }
+
+    }
+
+    .upload {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      background-color: #F8F8F8;
+
+      input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        pointer-events: none;
+        touch-action: none;
+        visibility: hidden;
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        flex-direction: column;
+        cursor: pointer;
+        
+        .icon {
+          font-size: 50px;
+          line-height: 50px;
+          color: var(--violet);
+          margin-bottom: 20px;
+        }
+
+        .label {
+          text-align: center; 
+          color: #989898;
+          font-size: 15px;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .edit {
+    .grad {
+
+    }
+
+    .add_text {
+
+    }
+
+    .text_list {
+      max-height: 300px;
+      overflow-y: auto !important;
+    }
+  }
+}

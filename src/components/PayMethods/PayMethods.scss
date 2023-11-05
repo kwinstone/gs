@@ -1,0 +1,93 @@
+.PayMethods.active {
+
+    .PayMethods__main {
+
+        &_label {
+
+            &_icon {
+                transform: rotate(180deg);
+            }
+        }
+    }
+}
+
+.PayMethods {
+    margin-bottom: 20px;
+    width: 100%;
+
+    &__in {
+        border-radius: 10px;
+        background-color: #fff;
+    }
+
+    &__main {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+
+        &_label {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            //cursor: pointer;
+
+            &_icon {
+                margin-right: 15px;
+                transition: all .3s ease;
+            }
+
+            &_selected {
+                font-weight: 500;
+                color: var(--violet);
+            }
+        }
+
+        &_checkbox {
+            padding: 0 20px;
+        }
+    }
+
+    &__list {
+        overflow: hidden;
+        height: 0;
+        transition: all .3s ease;
+    }
+
+    &__item {
+        cursor: pointer;
+        padding: 20px;
+        padding-left: 51px;
+        position: relative;
+        color: var(--light_violet);
+        transition: all .3s ease;
+        &:after {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            top: calc(50% - 5px);
+            left: 20px;
+            border-radius: 100%;
+            transition: all .3s ease;
+            content: '';
+            background-color: var(--light_violet);
+            transform: scale(0);
+        }
+    }
+
+    &__item.active {
+        color: var(--violet);
+
+        &:after {
+            transform: scale(1);
+        }
+    }
+
+    &__action {
+        margin-top: 10px;
+
+        .Button {
+            width: 100%;
+        }
+    }
+}

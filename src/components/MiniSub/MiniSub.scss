@@ -1,0 +1,53 @@
+.MiniSub {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+
+    &__main {
+        border-radius: 10px;
+        margin-bottom: 5px;
+        background-color: #fff;
+        overflow: hidden;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        &_img {
+            // height: 100%;
+            overflow: hidden;
+            flex: 1 0 auto;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: flex;
+            }
+        }
+
+        &_name {
+            flex: 0 0 auto;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            font-size: 12px;
+            line-height: 16px;
+            padding: 5px;
+            font-weight: 500;
+            color: #666;
+        }
+    }
+
+    &__action {
+        .Button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+
+            &__text {
+                font-size: 12px;
+                line-height: 12px;
+            }
+        }
+    }
+}
