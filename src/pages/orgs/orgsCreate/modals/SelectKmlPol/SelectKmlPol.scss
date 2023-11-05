@@ -1,0 +1,29 @@
+.SelectKmlPol {
+    .ant-modal-body {
+        padding: 40px 20px !important;
+    }
+    &__list {
+        height: 500px;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        padding: 40px;
+    }
+
+    &__action {
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
+        
+        
+        &_all {
+            padding: 40px;
+            padding-top: 20px;
+            padding-bottom: 0;
+
+        }
+        .Button {
+            width: 100%;
+        }
+    }
+}

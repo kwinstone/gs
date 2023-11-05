@@ -1,0 +1,43 @@
+.ExMass {
+    width: 100%;
+
+    &__head {
+        
+    }
+
+    &__body {
+
+        &_list {
+
+        }
+
+        &_item {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            cursor: pointer;
+
+            &_val {
+                font-weight: 600;
+                color:var(--violet);
+            }
+
+            &_mass {
+
+            }
+
+            &_prices {
+
+                &_main {
+                    text-align: right;
+                }
+
+                &_discount {
+                    text-align: right;
+                    margin-top: 15px;
+                }
+            }
+        }
+    }
+}

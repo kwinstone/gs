@@ -1,0 +1,14 @@
+.OrdersInfo {
+    display: flex;
+    align-items: center;
+    padding-bottom: 40px;
+    
+    &__item {
+        margin-right: 20px;
+        font-weight: 600;
+    }
+    &__item.OrdersInfo__item-input {
+        max-width: 600px;
+        width: 100%;
+    }
+}

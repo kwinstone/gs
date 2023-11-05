@@ -1,0 +1,98 @@
+.EditHr {
+    width: 100%;
+
+    &__list {
+        border-radius: 10px !important;
+
+        .ant-select-item {
+            color: var(--violet);
+            font-size: 16px;
+            line-height: 18px;
+            font-weight: 600;
+
+            &:hover {
+                background-color: var(--light_violet);
+                color: #fff;
+            }
+        }
+
+        .ant-select-item.ant-select-item-option-selected {
+            background-color: var(--violet);
+            color: #fff;
+        }
+    }
+
+
+    &__select.ant-select-focused {
+
+        .ant-select-selector {
+            box-shadow: none !important;
+            border: 2px solid var(--light_violet) !important;
+        }
+    }
+
+    &__select.disabled {
+        pointer-events: none;
+        touch-action: none;
+        opacity: .5;
+    }
+
+    &__select.shadow {
+        .ant-select-selector {
+            box-shadow: 0px 0px 41px rgba(123, 153, 255, 0.15) !important;
+        }
+    }
+
+    &__select {
+        width: 100%;
+
+
+
+        .ant-select-selector {
+            border: 2px solid transparent ;
+            border-radius: 10px !important;
+            border: none !important;
+            height: 50px !important;
+            font-size: 16px !important;
+            line-height: 18px !important;
+            font-weight: 600 !important;
+            color: var(--violet);
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+            transition: all .3s ease !important;
+
+            .ant-select-selection-search {
+                display: flex;
+                align-items: center;
+                padding: 0 10px !important; 
+                // input {
+                //     padding: 15px 20px !important;
+                // }
+                input {
+                    
+                }
+                
+            }
+
+            .ant-select-selection-item {
+                display: flex;
+                align-items: center;
+                font-weight: 600;
+            }
+
+            .ant-select-selection-placeholder {
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+}
+
+.EditHr.shadow {
+
+    .EditHr__select {
+        .ant-select-selector {
+            box-shadow: 0px 0px 41px rgba(123, 153, 255, 0.15) !important;
+        }
+    }
+}

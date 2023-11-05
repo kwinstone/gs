@@ -1,0 +1,77 @@
+.Input {
+    width: 100%;
+    position: relative;
+
+
+    &__el {
+        background: #FFFFFF;
+        border-radius: 10px;
+        padding: 15px 20px;
+        border: 2px solid transparent;
+        transition: all .3s ease;
+        display: block;
+        width: 100%;
+        color: var(--violet);
+        outline: none;
+        font-weight: 600;
+        // font-size: 22px;
+        // line-height: 27px;
+        transition: all .3s ease;
+        // position: relative;
+        // z-index: 3;
+
+        &::placeholder {
+            color: var(--light_violet);
+        }
+
+        &:focus {
+            border-color: var(--light_violet);
+        }
+    }
+
+    &__error {
+        color: var(--red);
+        margin-top: 5px;
+        font-weight: 500;
+    }
+
+    &__label.valid {
+        transform: translateY(-12px) translateX(15px);
+        // border: 0.5px solid red;
+        width: auto;
+        background-color: #fff;
+        height: auto;
+        padding: 5px 5px 5px 5px;
+        border-radius: 10px;
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    &__label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        // width: 100%;
+        height: 100%;
+        display: flex;
+        padding: 15px 20px;
+        transition: all .3s ease;
+        font-weight: 600;
+        color: var(--light_violet);
+    }
+}
+
+.Input.error {
+
+    .Input__el {
+
+        border-color: var(--red);
+        box-shadow: 0px 0px 41px rgba(255, 74, 74, 0.15);
+    }
+}
+
+.Input.shadow {
+    .Input__el {
+        box-shadow: 0px 0px 41px rgba(123, 153, 255, 0.15);
+    }
+}

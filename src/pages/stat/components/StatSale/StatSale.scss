@@ -1,0 +1,29 @@
+.StatSale {
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #fff;
+
+    &__head {
+        color: var(--placeholder);
+        font-weight: 500;
+        
+    }
+
+    &__value {
+        font-weight: 600;
+        color: var(--violet);
+        font-size: 30px;
+        line-height: 40px;
+    }
+
+    &__info {
+        font-size: 18px;
+        line-height: 24px;
+        color: var(--placeholder);
+        font-weight: 500;
+
+        span {
+            font-weight: 600;
+        }
+    }
+}

@@ -1,0 +1,21 @@
+.OptItem {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    background: #FFFFFF;
+    border-radius: 10px;
+
+    &__name {
+        width: 50%;
+        font-weight: 600;
+    }
+
+    &__value {
+        width: 48%;
+        color: rgba(123, 153, 255, 0.5);
+        font-weight: 600;
+        text-align: right;
+    }
+}

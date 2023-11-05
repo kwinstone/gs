@@ -1,0 +1,33 @@
+.RevsPage {
+
+    .revs-comment {
+        max-width: 200px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    &__search {
+        display: flex;
+        align-items: center;
+
+        &_inp {
+            max-width: 620px;
+            width: 100%;
+            margin-right: 20px;
+        }
+
+        &_value {
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 24px;
+        }
+    }
+
+    .star-rating {
+
+        .ant-rate-star.ant-rate-star-full {
+            color: var(--violet);
+        }
+    }
+}

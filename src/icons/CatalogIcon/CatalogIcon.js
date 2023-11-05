@@ -1,0 +1,17 @@
+const CatalogIcon = ({size,color}) => {
+
+    return (
+        <div className="icon-gs" style={{width: size, height: size}}>
+            <svg width={size} height={size} viewBox="0 0 169 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M28.1426 76.2746C29.2085 74.29 30.9594 72.7605 33.0692 71.971C35.179 71.1814 37.5038 71.1856 39.6108 71.9828C41.1738 72.8694 42.4248 74.2171 43.193 75.8416C43.9612 77.4661 44.209 79.2882 43.9026 81.0589C43.4101 84.1546 41.1586 85.421 35.7411 90.6274C32.2233 93.9342 29.4793 96.8892 27.7908 98.7185H44.184" stroke={color} strokeWidth="7.03571" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M28.5654 120.179H43.7626L34.5458 129.255C35.8181 129.29 37.0702 129.581 38.2279 130.11C39.3856 130.639 40.4252 131.395 41.285 132.333C42.1447 133.272 42.807 134.374 43.2327 135.573C43.6583 136.773 43.8385 138.045 43.7626 139.316C43.3919 141.173 42.4316 142.861 41.0245 144.129C39.6174 145.397 37.8387 146.176 35.9529 146.352C34.6483 146.403 33.3473 146.18 32.135 145.695C30.9227 145.21 29.8262 144.475 28.9172 143.537" stroke={color} strokeWidth="7.03571" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M137.125 36.877H65.6421" stroke={color} strokeWidth="10.5536" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M137.125 133.123H65.6421" stroke={color} strokeWidth="10.5536" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M137.125 85H65.6421" stroke={color} strokeWidth="10.5536" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M32.9268 27.2364L39.47 23.2964V50.3839" stroke={color} strokeWidth="7.03571" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+        </div>
+    )
+}
+
+export default CatalogIcon

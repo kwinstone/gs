@@ -1,0 +1,16 @@
+.ActionItemSelect {
+
+    &__result {
+        display: flex;
+        overflow-x: auto;
+        padding: 20px 20px;
+
+        &_item {
+            margin-right: 10px;
+        }
+    }
+
+    &__selected {
+        
+    }
+}

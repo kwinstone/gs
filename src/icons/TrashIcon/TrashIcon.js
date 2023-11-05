@@ -1,0 +1,16 @@
+const TrashIcon = ({size, color}) => {
+    return (
+        <div className="icon-gs" style={{width: size, height: size}}>
+            <svg width={size} height={size} viewBox="0 0 169 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M127.84 63.4722V128.553C127.84 140.513 118.13 150.223 106.169 150.223H62.7591C50.7984 150.223 41.0891 140.513 41.0891 128.553V63.4722" stroke={color} strokeWidth="10.5536" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M26.5952 41.7329H142.262" stroke={color} strokeWidth="10.5536" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M62.7581 41.7326C62.7581 29.7719 72.4674 20.0625 84.4281 20.0625C96.3888 20.0625 106.098 29.7719 106.098 41.7326" stroke={color} strokeWidth="10.5536" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M69.9346 85.1426L98.9217 114.059" stroke={color} strokeWidth="10.5536" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M98.9217 85.1426L69.9346 114.059" stroke={color} strokeWidth="10.5536" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+
+        </div>
+    )
+}
+
+export default TrashIcon;

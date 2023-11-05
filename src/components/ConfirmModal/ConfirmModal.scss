@@ -1,0 +1,41 @@
+.ConfirmModal {
+
+    &__head {
+        margin-bottom: 20px;
+    }
+    &__body {
+
+        &_text {
+            color: #989898;
+            font-weight: 500;
+        }
+
+        &_action {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            &_btn {
+                font-weight: 500;
+                cursor: pointer;
+                transition: all .3s ease;
+
+                &:hover {
+                    opacity: .5;
+                }
+
+                &:active {
+                    transform: scale(0.9);
+                }
+            }
+            &_accept {
+                color: var(--violet);
+            }
+
+            &_cancel {
+                color: var(--red);
+            }   
+        }
+    }
+}

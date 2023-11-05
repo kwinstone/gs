@@ -1,0 +1,42 @@
+.wrapper {
+  .label {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 15px;
+  }
+  .list {
+    display: flex;
+    margin-left: -4px;
+    margin-right: -4px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+
+    .item {
+      width: 85px;
+      height: 85px;
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.20);
+      margin: 0 4px;
+      border: 4px solid rgba(0, 0, 0, 0.10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      cursor: pointer;
+      transition: all .2s ease; 
+
+      &:hover {
+        border-color: var(--violet);
+      }
+    }
+
+    .item.active {
+      border-color: var(--violet);
+    }
+  }
+}

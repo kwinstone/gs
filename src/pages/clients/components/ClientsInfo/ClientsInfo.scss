@@ -1,0 +1,15 @@
+.ClientsInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    &__item {
+
+    }
+
+    &__item.ClientsInfo__item-input {
+        max-width: 600px;
+        width: 100%;
+    }
+}

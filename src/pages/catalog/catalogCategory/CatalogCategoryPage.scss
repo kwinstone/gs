@@ -1,0 +1,13 @@
+.CatalogCategoryPage {
+
+    &__body {
+        &_list {
+            &_add {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                
+            }
+        }
+    }
+}

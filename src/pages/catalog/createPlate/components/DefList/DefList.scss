@@ -1,0 +1,10 @@
+.DefList {
+    width: 100%;
+    &__body {
+
+        &_item {
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+    }
+}

@@ -1,0 +1,243 @@
+.Modal {
+
+    .ant-modal-content {
+        border-radius: 20px;
+        background-color: #fff;
+        overflow: hidden;
+        
+        .ant-modal-close {
+            display: none;
+        }
+
+        .ant-modal-body {
+            padding: 35px 45px;
+            
+        }
+
+        .ant-modal-footer {
+            display: none;
+        }
+    }
+
+    &__head {
+        font-weight: 600;
+        margin-bottom: 35px;
+        font-size: 22px;
+        line-height: 27px;
+    }
+
+    &__form {
+
+        &_row {
+            margin-bottom: 20px;
+        }
+
+        &_upload {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            background-color: #fff;
+            border-radius: 20px;
+            height: 144px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0px 0px 41px rgba(123, 153, 255, 0.15);
+            &_load {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10;
+                background-color: rgba(#000, .2);
+                backdrop-filter: blur(10px);
+            }
+
+            &_prev {
+                width: 100%;
+                height: 100%;
+                position: relative;
+
+
+                &_edit {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+
+                    input {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        z-index: -1;
+                        pointer-events: none;
+                        visibility: hidden;
+                    }
+                    label {
+                        width: 40px;
+                        height: 40px;
+                        background-color: var(--violet);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 100%;
+                        color: #fff;
+                        transition: all .3s ease;
+                        font-size: 20px;
+                        line-height: 20px;
+                        cursor: pointer;
+                        &:hover {
+                            opacity: .7;
+                        }
+
+                        &:active {
+                            transform: scale(0.95);
+                        }
+                    }
+                }
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                    display: flex;
+                }
+            }
+
+            input {
+                position: absolute;
+                top: 0;
+                left: 0;
+                visibility: hidden;
+                z-index: -1;
+                pointer-events: none;
+                touch-action: none;
+            }
+
+            &_label {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                max-width: 345px;
+                width: 100%;
+                height: 100%;
+                border-radius: 20px;
+                background: var(--light_gray);
+                cursor: pointer;
+                border: 1px solid transparent;
+                transition: all .3s ease;
+
+                &:active {
+                    transform: scale(0.95);
+                }
+
+                &:hover {
+                    border-color: var(--violet);
+
+                }
+                &_text {
+                    text-align: center;
+                    font-weight: 600;
+                    color: var(--gray)
+                }
+            }
+        }
+
+        &_map {
+            height: 480px;
+
+        }
+
+        &_action {
+            
+            .Button {
+                width: 100%;
+            }
+        }
+
+        &_time.disabled {
+            opacity: .5;
+        }
+
+        &_time {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all .3s ease;
+            
+            &_space {
+                margin: 0 10px;
+                color: var(--violet);
+                font-size: 42px;
+                line-height: 52px;
+                font-weight: 600;
+            }
+
+            &_item.react-time-picker--disabled {
+                background-color: unset;
+            }
+
+            &_item {
+                // width: 48%;
+
+                .react-time-picker__wrapper {
+                    flex: unset;
+                    border: unset;
+
+                    .react-time-picker__inputGroup {
+                        font-size: 42px;
+                        line-height: 52px;
+                        font-weight: 600;
+                        color: var(--violet);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        min-width: unset;
+                        flex: unset;
+                        
+                        input {
+                            // width: 100%;
+                            outline: none;
+                            &::placeholder {
+                                color: var(--light_violet);
+                            }
+                            
+                        }
+                        .react-time-picker__inputGroup__input.react-time-picker__inputGroup__input--hasLeadingZero {
+                            width: 28px !important;
+                        }
+                        .react-time-picker__inputGroup__input {
+                            width: 60px !important;
+                            border-bottom: 2px solid var(--violet);
+                        }
+                        
+                    }
+                    .react-time-picker__clear-button {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        &_addlist {
+
+            &_in {
+                overflow-x: auto;
+                display: flex;
+                flex-wrap: nowrap;
+
+            }
+
+            &_item {
+                width: 150px;
+                height: 200px;
+                flex: 0 0 auto;
+                margin-right: 20px;
+            }
+        }
+    }
+}

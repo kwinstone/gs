@@ -1,0 +1,38 @@
+.MiniCat {
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+
+    user-select: none;
+
+    &__name {
+        flex: 1 0 auto;
+        padding: 3px;
+        text-align: center;
+        font-weight: 500;    
+        margin-bottom: 4px;
+        background-color: #fff;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        line-height: 15px;
+        color: #666;
+    }
+
+    &__action {
+        flex: 0 0 auto;
+
+        .Button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+
+            &__text {
+                font-size: 12px;
+                line-height: 12px;
+            }
+        }
+    }
+}

@@ -1,0 +1,45 @@
+.ClientsFilter {
+    padding: 20px 0;
+    
+
+    border-bottom: 1px solid var(--violet);
+    
+
+    &__main {
+        margin-bottom: 20px;
+    }
+
+
+    &__ex {
+
+    }
+
+    &__import_input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        visibility: hidden;
+        pointer-events: none;
+        touch-action: none;
+    }
+
+    &__import_input ~ label {
+
+    }
+
+    &__import_label {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        background-color: #fff;
+        font-weight: 600;
+        border-radius: 10px;
+        transition: all .3s ease;
+        cursor: pointer;
+        
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+}

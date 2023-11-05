@@ -1,0 +1,40 @@
+.BasketTable {
+
+    margin-bottom: 30px;
+    &__row.BasketTable__row-head {
+        background-color: unset;
+        box-shadow: none;
+        margin-bottom: 0;
+    }
+
+    &__row {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 10px;
+        margin-bottom: 10px;
+        box-shadow: 0px 0px 41px rgba(123, 153, 255, 0.15);
+        border-radius: 15px;
+        background-color: #fff;
+        cursor: pointer;
+        
+
+        &_item {
+            width: calc(100% / 3);
+            font-weight: 600;
+            color: var(--violet);
+            padding: 0 10px;
+
+            &:last-child {
+                text-align: right;
+            }
+        }
+    }
+
+    &__head {
+        color: #494949;
+    }
+
+
+
+
+}
