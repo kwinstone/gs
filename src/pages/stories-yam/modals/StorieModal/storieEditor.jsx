@@ -43,6 +43,7 @@ const useStorieEditor = () => {
       value,
       title,
       fontSize,
+      fontWeight: 500,
       color,
       coords
     }])

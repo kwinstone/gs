@@ -149,3 +149,35 @@
     }
   }
 }
+
+.colorPicker {
+  margin-left: 4px;
+  position: relative;
+  cursor: pointer !important;
+
+  &__input {
+    cursor: pointer !important;
+    -webkit-appearance: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+
+    &::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    &::-webkit-color-swatch {
+      border-radius: 100%;
+    }
+  }
+
+  &__icon {
+    cursor: pointer !important;
+
+    position: absolute;
+    pointer-events: none;
+    left: 10px;
+    top: 9px;
+  }
+}

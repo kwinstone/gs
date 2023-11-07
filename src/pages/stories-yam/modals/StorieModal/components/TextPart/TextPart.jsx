@@ -1,8 +1,10 @@
 import styles from './TextPart.module.scss';
-import {Row, Col} from 'antd';
+import {Row, Col, Input, InputNumber, Divider, Checkbox} from 'antd';
 import { BsTrash } from 'react-icons/bs';
 import Text from '../../../../../../components/Text/Text';
 import getClassNames from '../../../../../../funcs/getClassNames';
+import {useState} from "react";
+import {CgColorPicker} from "react-icons/cg";
 
 
 const colors = [
@@ -52,7 +54,8 @@ const TextPart = ({
     color,
     coords,
   } = data || {}
-
+  const [initial, setInitial] = useState('#5e72e4');
+  const [customColor, setCustomColor] = useState({});
 
   const onDelete = () => {
     editor?.deleteText(itemIndex)
@@ -67,6 +70,16 @@ const TextPart = ({
     })
   }
 
+  const onFontWeightSelect = (e) => {
+    const value = e.target.checked;
+    editor?.editText({
+      data: {
+        fontWeight: value ? 600 : 500
+      },
+      itemIndex,
+    })
+  }
+
   const onColorSelect = (color) => {
     editor?.editText({
       data: {
@@ -75,6 +88,9 @@ const TextPart = ({
       itemIndex
     })
   }
+
+  const [customSize, setCustomSize] = useState(6);
+  console.log('Editor', editor.textList)
 
   return (
     <div className={styles.wrapper}>
@@ -93,7 +109,7 @@ const TextPart = ({
         </Col>
         <Col span={24}>
           <div className={styles.main}>
-            <Row gutter={[15,15]}>
+            <Row>
               <Col span={24}>
                 <div className={styles.text}>
                   <Text
@@ -113,6 +129,9 @@ const TextPart = ({
                 </div>
               </Col>
               <Col span={24}>
+                <div style={{ fontWeight: 600, marginBottom: 8, marginTop: 12}}>
+                  Выбор размера:
+                </div>
                 <div className={styles.size}>
                   {
                     fontSizes?.map((i,index) => (
@@ -126,9 +145,29 @@ const TextPart = ({
                       </div>
                     ))
                   }
+                  {
+                    <div
+                        onClick={() => onFontSizeSelect(customSize)}
+                        className={getClassNames([styles.size_item, customSize === editor?.textList[itemIndex]?.fontSize && styles.active])}>
+                      <div className={styles.size_icon}></div>
+                      <div className={styles.size_text}>
+                        <InputNumber value={customSize} onChange={(value) => {
+                          setCustomSize(value)
+                          onFontSizeSelect(value)
+                        }} min={6} max={28} type={'number'} /> - свой размер
+                      </div>
+                    </div>
+                  }
+                </div>
+                <div style={{ marginTop: 12}}>
+                  <Checkbox value={editor?.textList[itemIndex]?.fontWeight === 600} onChange={onFontWeightSelect}>Сделать текст жирным</Checkbox>
                 </div>
               </Col>
               <Col span={24}>
+                <Divider />
+                <div style={{ fontWeight: 600, marginBottom: 8}}>
+                  Выбор цвета:
+                </div>
                 <div className={styles.colors}>
                   {
                     colors?.map((i,index) => (
@@ -138,6 +177,9 @@ const TextPart = ({
                         className={getClassNames([styles.color, editor?.textList[itemIndex]?.color === i?.value && styles.active])}/>
                     ))
                   }
+                  <div className={styles.colorPicker}><input type={'color'} onChange={e => onColorSelect(e.target.value)} className={styles.colorPicker__input} />
+                    <CgColorPicker className={styles.colorPicker__icon} color={'white'} size={20} />
+                  </div>
                 </div>
               </Col>
             </Row>

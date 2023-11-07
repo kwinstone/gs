@@ -105,7 +105,6 @@ const StorieModal = ({
       }
     }
   }, [file])
-  console.log('Editor', data, editor)
 
   
   return (
@@ -182,6 +181,7 @@ const StorieModal = ({
                             style={{
                               color: i?.color,
                               fontSize: i?.fontSize,
+                              fontWeight: i?.fontWeight,
                               left: 0,
                               top: 0
                             }}

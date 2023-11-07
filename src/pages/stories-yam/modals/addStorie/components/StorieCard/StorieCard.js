@@ -23,6 +23,7 @@ const StorieCard = ({
     media,
     textList,
   } = data || {}
+  console.log(textList)
 
   return (
     <div className={styles.wrapper}>
@@ -65,6 +66,7 @@ const StorieCard = ({
                   style={{
                     color: i?.color,
                     fontSize: i?.fontSize,
+                    fontWeight: i?.fontWeight,
                     position: 'absolute',
                   }}
                   className={styles.prev_text}>
