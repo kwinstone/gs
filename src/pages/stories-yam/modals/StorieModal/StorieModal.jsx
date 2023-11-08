@@ -185,7 +185,7 @@ const StorieModal = ({
                               left: 0,
                               top: 0
                             }}
-                            className={styles.layer}
+                            className={`${styles.layer} nekst-font`}
                             >{i?.value}</div>
                           </Draggable>
                           

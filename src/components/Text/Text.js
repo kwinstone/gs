@@ -10,8 +10,8 @@ const Text = ({
     placeholder,
     height,
     shadow,
-    style
-    
+    style,
+    rows
 }) => {
     const inpRef = useRef()
     const [validFocus, setValidFocus] = useState(false)
@@ -36,7 +36,7 @@ const Text = ({
                 )
             }
             <textarea 
-            
+                rows={rows ?? undefined}
             onChange={onChange}
             onBlur={() => {
                 if(!value) {

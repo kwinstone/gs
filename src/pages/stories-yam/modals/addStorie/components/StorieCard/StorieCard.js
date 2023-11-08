@@ -57,6 +57,7 @@ const StorieCard = ({
                 bounds={'.prev-drag-bounds'}
                 style={{pointerEvents: 'none', touchAction: 'none'}}
                 scale={1.5}
+                className={'nekst-font'}
                 positionOffset={{
                   x: i?.coords[0],
                   y: i?.coords[1] 

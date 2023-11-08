@@ -31,6 +31,7 @@ import getBase64 from '../../../../funcs/getBase64';
 import {Swiper, SwiperSlide} from 'swiper/react'
 import {FreeMode, Navigation} from 'swiper/modules';
 import {FiChevronLeft, FiChevronRight} from 'react-icons/fi'
+import {Title} from "chart.js";
 
 
 const cs = new catService();
@@ -62,6 +63,8 @@ const AddStorie = ({
     const [ItemOrder, setItemOrder] = useState('0')
     const [PictureThumbnail, setPictureThumbnail] = useState()
     const [TextBundle, setTextBundle] = useState('')
+    const [TitleTextBundle, setTitleTextBundle] = useState('')
+    const [NamePreview, setNamePreview] = useState('')
     const [images, setImages] = useState([])
     
 
@@ -108,6 +111,8 @@ const AddStorie = ({
         setItemOrder('0')
         setPictureThumbnail(undefined)
         setTextBundle('')
+        setTitleTextBundle('')
+        setNamePreview('')
         setImages([])
         setHideInOrg(false)
 
@@ -121,6 +126,7 @@ const AddStorie = ({
     useEffect(() => {
         if (orgs?.length > 0) {
             if (data) {
+                console.log('Data', data)
                 setID(data?.ID)
                 setAllowedDeliveryTypes([data?.AllowedDeliveryTypes.toString()])
                 setButtonAction(data?.ButtonAction)
@@ -158,6 +164,8 @@ const AddStorie = ({
                 setItemOrder(data?.ItemOrder)
                 setPictureThumbnail(data?.PictureThumbnail)
                 setTextBundle(data?.TextBundle)
+                setTitleTextBundle(data?.TitleTextBundle ?? '')
+                setNamePreview(data?.NamePreview ?? '')
                 setImages(data?.images?.map(i => {
                     const { Options, ...rest } = i
                     return {
@@ -295,6 +303,9 @@ const AddStorie = ({
                 body.append('ThumbnailPicture', PictureThumbnail)
             }
             body.append('TextBundle', TextBundle)
+            body.append('TitleTextBundle', TitleTextBundle)
+            body.append('NamePreview', NamePreview)
+
             const imagesArray = images
             // ?.filter(f => !f?.Picture?.includes('http'))
             ?.map((item, itemIndex) => {
@@ -357,7 +368,10 @@ const AddStorie = ({
             if(PictureThumbnail) {
                 body.append('ThumbnailPicture', PictureThumbnail)
             }
+            body.append('TitleTextBundle', TitleTextBundle)
             body.append('TextBundle', TextBundle)
+            body.append('NamePreview', NamePreview)
+
             const imagesArray = images?.map((item, index) => {
                 return {
                     ItemOrder: index,
@@ -509,7 +523,16 @@ const AddStorie = ({
                                             
                                         </Row>
                                     </Col>
-                                    
+                                    <Col span={24}>
+                                        <Input shadow
+                                               maskType={String}
+                                               placeholder={'Заголовок (до 50-ти символов)'}
+                                               height={50}
+                                               value={TitleTextBundle}
+                                               onChange={e => setTitleTextBundle(e.target.value)}
+                                            error={TitleTextBundle.length > 50}
+                                        />
+                                    </Col>
                                     <Col span={24}>
                                         <Text
                                             shadow
@@ -611,7 +634,7 @@ const AddStorie = ({
                                 <Row gutter={[10, 10]}>
                                     <Col span={24}>
                                         <Button
-                                            disabled={!(images.length > 0 && PictureThumbnail)}
+                                            disabled={!(images.length > 0 && PictureThumbnail) || TitleTextBundle.length > 50 || NamePreview.length > 50}
                                             onClick={onSave}
                                             load={saveLoad}
                                             styles={{ width: '100%' }}
@@ -671,6 +694,14 @@ const AddStorie = ({
                             </Col>
                             <Col span={24}>
                                 <Row gutter={[10, 10]}>
+                                    <Input shadow
+                                           maskType={String}
+                                           placeholder={'Название превью (до 50-ти символов)'}
+                                           height={50}
+                                           value={NamePreview}
+                                           onChange={e => setNamePreview(e.target.value)}
+                                           error={NamePreview.length > 50}
+                                    />
                                     <Col span={24}>
                                         <h3 style={{margin: 0}} className="panel-label">Действие при нажатии на кнопку</h3>
                                     </Col>
