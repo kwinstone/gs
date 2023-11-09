@@ -142,6 +142,8 @@ const SettingsPage = () => {
                 setData={setArticles}
                 visible={editArt}
                 close={closeEditArt}
+                articles={Articles}
+                contacts={Contacts}
                 />
 
 

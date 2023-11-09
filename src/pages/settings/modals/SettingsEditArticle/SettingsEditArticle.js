@@ -1,18 +1,26 @@
-import { Modal, Col, Row } from "antd";
+import {Modal, Col, Row, message} from "antd";
 import { useEffect, useState } from "react";
 import Text from "../../../../components/Text/Text";
 import Button from "../../../../components/Button/Button";
 import SaveIcon from "../../../../icons/SaveIcon/SaveIcon";
 import { useCallback } from "react";
 import './SettingsEditArticle.scss';
+import {useSelector} from "react-redux";
+import setService from "../../../../services/setService";
 
+
+const ss = new setService();
 
 const SettingsEditArticle = ({
     visible,
     close,
     data,
-    setData
+    setData,
+    articles,
+    contacts
 }) => {
+    const {token} = useSelector(state => state)
+
     const [text, setText] = useState('')
     const [name, setName] = useState('')
 
@@ -28,9 +36,22 @@ const SettingsEditArticle = ({
         close()
     }
 
-    const onSave = useCallback((index) => {
+    const onSave = (index) => {
+        const main = {
+            Articles: {
+                ...articles,
+                Bonuses: index === 0 ? text : articles.Bonuses,
+                DeliveryAndPayment: index === 1 ? text : articles.DeliveryAndPayment,
+                PrivacyPolicy: index === 2 ? text : articles.PrivacyPolicy,
 
-        if(index === 0) {
+            },
+            Contacts: contacts.map(i => {
+                delete i.index;
+                return i;
+            })
+        }
+
+        if (index === 0) {
             setData(state => {
                 return {
                     ...state,
@@ -38,7 +59,7 @@ const SettingsEditArticle = ({
                 }
             })
         }
-        if(index === 1) {
+        if (index === 1) {
             setData(state => {
                 return {
                     ...state,
@@ -46,7 +67,7 @@ const SettingsEditArticle = ({
                 }
             })
         }
-        if(index === 2) {
+        if (index === 2) {
             setData(state => {
                 return {
                     ...state,
@@ -54,9 +75,17 @@ const SettingsEditArticle = ({
                 }
             })
         }
-        handleClose();
-        
-    }, [text])
+
+        Promise.all([ss.editMainSettings(token, main)]).then(res => {
+
+            if(res) {
+                message.success('Настройки сохранены')
+            }
+            handleClose();
+        }).finally(_ => {
+            // message.error('Возникла ошибка при сохранении настроек')
+        })
+    }
 
     return (
         <Modal

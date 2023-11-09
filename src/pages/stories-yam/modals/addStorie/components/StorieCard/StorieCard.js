@@ -23,7 +23,6 @@ const StorieCard = ({
     media,
     textList,
   } = data || {}
-  console.log(textList)
 
   return (
     <div className={styles.wrapper}>

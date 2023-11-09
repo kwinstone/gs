@@ -28,10 +28,10 @@ import StorieModal from '../StorieModal/StorieModal';
 import SelectCategoryModal from '../../../../modals/SelectCategoryModal/SelectCategoryModal';
 import Text from '../../../../components/Text/Text';
 import getBase64 from '../../../../funcs/getBase64';
-import {Swiper, SwiperSlide} from 'swiper/react'
-import {FreeMode, Navigation} from 'swiper/modules';
-import {FiChevronLeft, FiChevronRight} from 'react-icons/fi'
-import {Title} from "chart.js";
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { FreeMode, Navigation } from 'swiper/modules';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+import { Title } from "chart.js";
 
 
 const cs = new catService();
@@ -48,7 +48,7 @@ const AddStorie = ({
     const [actionItem, setActionItem] = useState();
     const [actionItemModal, setActionItemModal] = useState(false)
     const [actionList, setActionList] = useState([]);
-    
+
     //fetchdata
     const [ID, setID] = useState()
     const [AllowedDeliveryTypes, setAllowedDeliveryTypes] = useState(['3'])
@@ -66,7 +66,7 @@ const AddStorie = ({
     const [TitleTextBundle, setTitleTextBundle] = useState('')
     const [NamePreview, setNamePreview] = useState('')
     const [images, setImages] = useState([])
-    
+
 
     //adjacent vars
     const [HideInOrg, setHideInOrg] = useState(false)
@@ -87,14 +87,14 @@ const AddStorie = ({
     const [storieData, setStorieData] = useState(null)
 
     useEffect(() => {
-        if(token) {
+        if (token) {
             cs.getCats(token).then(res => {
-            
-            setCatsList(res)
-          }) 
+
+                setCatsList(res)
+            })
         }
-      }, [token])
-    
+    }, [token])
+
 
     const closeHandle = () => {
         //main data
@@ -126,7 +126,6 @@ const AddStorie = ({
     useEffect(() => {
         if (orgs?.length > 0) {
             if (data) {
-                console.log('Data', data)
                 setID(data?.ID)
                 setAllowedDeliveryTypes([data?.AllowedDeliveryTypes.toString()])
                 setButtonAction(data?.ButtonAction)
@@ -173,7 +172,7 @@ const AddStorie = ({
                         ...JSON.parse(Options)
                     }
                 }))
-            } 
+            }
             // else {
             //     setImages([])
             //     setButtonActionItemID('0')
@@ -240,11 +239,11 @@ const AddStorie = ({
     }
 
     const onDeleteStorie = (index) => {
-        if(data) {
+        if (data) {
             st.deleteStorieImage(token, images[index]?.ID).then(res => {
-                if(res?.error == 0) {
+                if (res?.error == 0) {
                     message.success('Стори удален')
-                    setImages(s => s.filter((_, itemIndex) => itemIndex !== index))        
+                    setImages(s => s.filter((_, itemIndex) => itemIndex !== index))
                 }
             })
         } else {
@@ -282,7 +281,7 @@ const AddStorie = ({
     const onSave = () => {
         const body = new FormData()
 
-        if(data) {
+        if (data) {
             setSaveLoad(true)
             body.append('ID', ID)
             body.append('AllowedDeliveryTypes', AllowedDeliveryTypes.join(''))
@@ -299,7 +298,7 @@ const AddStorie = ({
             }
             body.append('HideInApp', HideInApp)
             body.append('ItemOrder', ItemOrder)
-            if(PictureThumbnail) {
+            if (PictureThumbnail) {
                 body.append('ThumbnailPicture', PictureThumbnail)
             }
             body.append('TextBundle', TextBundle)
@@ -307,42 +306,42 @@ const AddStorie = ({
             body.append('NamePreview', NamePreview)
 
             const imagesArray = images
-            // ?.filter(f => !f?.Picture?.includes('http'))
-            ?.map((item, itemIndex) => {
-                const {index, ...nonIndexData} = item
-                if(item?.ID) {
-                    return {
-                        ID: nonIndexData?.ID,
-                        ItemOrder: nonIndexData?.ItemOrder,
-                        BundleID: nonIndexData?.BundleID,
-                        Picture: item?.Picture,
-                        // PictureType: nonIndexData?.media?.type,
-                        Disabled: 0,
-                        PictureThumbnail: item?.PictureThumbnail,
-                        Options: {
-                            media: {type: nonIndexData?.media?.type},
-                            grad: nonIndexData?.grad,
-                            textList: nonIndexData?.textList
+                // ?.filter(f => !f?.Picture?.includes('http'))
+                ?.map((item, itemIndex) => {
+                    const { index, ...nonIndexData } = item
+                    if (item?.ID) {
+                        return {
+                            ID: nonIndexData?.ID,
+                            ItemOrder: nonIndexData?.ItemOrder,
+                            BundleID: nonIndexData?.BundleID,
+                            Picture: item?.Picture,
+                            // PictureType: nonIndexData?.media?.type,
+                            Disabled: 0,
+                            PictureThumbnail: item?.PictureThumbnail,
+                            Options: {
+                                media: { type: nonIndexData?.media?.type },
+                                grad: nonIndexData?.grad,
+                                textList: nonIndexData?.textList
+                            }
+                        }
+                    } else {
+                        return {
+                            ItemOrder: itemIndex,
+                            Picture: nonIndexData?.media?.file,
+                            PictureType: nonIndexData?.media?.type,
+                            Disabled: 0,
+                            Options: {
+                                media: { type: nonIndexData?.media?.type },
+                                grad: nonIndexData?.grad,
+                                textList: nonIndexData?.textList
+                            }
                         }
                     }
-                } else {
-                    return {
-                        ItemOrder: itemIndex,
-                        Picture: nonIndexData?.media?.file,
-                        PictureType: nonIndexData?.media?.type,
-                        Disabled: 0,
-                        Options: {
-                            media: {type: nonIndexData?.media?.type},
-                            grad: nonIndexData?.grad,
-                            textList: nonIndexData?.textList
-                        }
-                    }
-                }
-            })
+                })
             body.append('images', JSON.stringify(imagesArray))
             console.log(imagesArray)
             st.storiesCreateAndEdit(token, body).then(res => {
-                    
+
             }).finally(_ => {
                 setSaveLoad(false)
                 closeHandle()
@@ -365,7 +364,7 @@ const AddStorie = ({
             }
             body.append('HideInApp', HideInApp)
             body.append('ItemOrder', ItemOrder)
-            if(PictureThumbnail) {
+            if (PictureThumbnail) {
                 body.append('ThumbnailPicture', PictureThumbnail)
             }
             body.append('TitleTextBundle', TitleTextBundle)
@@ -390,7 +389,7 @@ const AddStorie = ({
             })
             body.append('images', JSON.stringify(imagesArray))
             st.storiesCreateAndEdit(token, body).then(res => {
-                
+
             }).finally(_ => {
                 setSaveLoad(false)
                 closeHandle()
@@ -398,10 +397,10 @@ const AddStorie = ({
             })
         }
     }
-    
+
 
     const onSaveCategory = (value) => {
-        if(!CategoryList?.find(i => value?.ID == i?.ID)) {
+        if (!CategoryList?.find(i => value?.ID == i?.ID)) {
             setCategoryList(s => [...s, value?.ID])
         }
     }
@@ -414,368 +413,368 @@ const AddStorie = ({
 
     return (
         <>
-        <Modal className={getClassNames(["Modal", styles.wrapper])} open={visible} width={1000} onCancel={closeHandle}>
-            <SelectOrg
-                list={orgs}
-                selected={orgsList}
-                visible={hideOrgModal}
-                close={() => setHideOrgModal(false)}
-                setSelected={setOrgsList}
-            />
-            <ActionItemSelect
-                close={() => setActionItemModal(false)}
-                visible={actionItemModal}
-                actionType={ButtonTypeAction}
-                setButtonActionItemID={setButtonActionItemID}
-                actionItem={actionItem}
-                list={actionList}
-            />
-            <StorieModal
-                onSaveStorie={onSaveStorie}
-                data={storieData}
-                open={storieModal}
-                onCancel={() => {
-                    setStorieModal(false)
-                    setStorieData(null)
-                }}
-            />
-            <SelectCategoryModal
-                open={catsModal}
-                onCancel={() => setCatsModal(false)}
-                onSave={onSaveCategory}
+            <Modal className={getClassNames(["Modal", styles.wrapper])} open={visible} width={1000} onCancel={closeHandle}>
+                <SelectOrg
+                    list={orgs}
+                    selected={orgsList}
+                    visible={hideOrgModal}
+                    close={() => setHideOrgModal(false)}
+                    setSelected={setOrgsList}
                 />
-            <h2 className="Modal__head">
-                {
-                    data ? 'Редактировать сториз' : 'Добавить сториз'
-                }
-            </h2>
-            <div>
-            </div>
-            <div className="Modal__form">
-                <Row gutter={[30, 0]}>
-                    <Col span={15}>
-                        <Row gutter={[20, 20]}>
-                            <Col span={24}>
-                                <div className={styles.main}>
-                                    <Swiper 
-                                        modules={[FreeMode, Navigation]}
-                                        slidesPerView={'auto'}
-                                        freeMode
-                                        navigation={{
-                                            prevEl: `.prev`,
-                                            nextEl: `.next`,
-                                        }}
+                <ActionItemSelect
+                    close={() => setActionItemModal(false)}
+                    visible={actionItemModal}
+                    actionType={ButtonTypeAction}
+                    setButtonActionItemID={setButtonActionItemID}
+                    actionItem={actionItem}
+                    list={actionList}
+                />
+                <StorieModal
+                    onSaveStorie={onSaveStorie}
+                    data={storieData}
+                    open={storieModal}
+                    onCancel={() => {
+                        setStorieModal(false)
+                        setStorieData(null)
+                    }}
+                />
+                <SelectCategoryModal
+                    open={catsModal}
+                    onCancel={() => setCatsModal(false)}
+                    onSave={onSaveCategory}
+                />
+                <h2 className="Modal__head">
+                    {
+                        data ? 'Редактировать сториз' : 'Добавить сториз'
+                    }
+                </h2>
+                <div>
+                </div>
+                <div className="Modal__form">
+                    <Row gutter={[30, 0]}>
+                        <Col span={15}>
+                            <Row gutter={[20, 20]}>
+                                <Col span={24}>
+                                    <div className={styles.main}>
+                                        <Swiper
+                                            modules={[FreeMode, Navigation]}
+                                            slidesPerView={'auto'}
+                                            freeMode
+                                            navigation={{
+                                                prevEl: `.prev`,
+                                                nextEl: `.next`,
+                                            }}
                                         >
-                                        <SwiperSlide style={{width: 'fit-content'}}> 
-                                            <div
-                                                onClick={() => setStorieModal(true)}
-                                                className={styles.main_add}>
-                                                Добавить сториз
-                                            </div>
-                                        </SwiperSlide>
-                                        {
-                                            images?.map((i, index) => (
-                                                <SwiperSlide style={{ width: '400px'}}>
-                                                <div className={styles.main_item}>
-                                                    <StorieCard
-                                                        data={i}
-                                                        index={index}
-                                                        onDeleteStorie={onDeleteStorie}
-                                                        onEditStorie={onEditStorie}
-                                                    />
+                                            <SwiperSlide style={{ width: 'fit-content' }}>
+                                                <div
+                                                    onClick={() => setStorieModal(true)}
+                                                    className={styles.main_add}>
+                                                    Добавить сториз
                                                 </div>
-                                                </SwiperSlide>
-                                            ))
-                                        }
-                                    </Swiper>
-                                    
-                                    
-                                </div>
-                            </Col>
-                            <Col span={24}>
-                                <Row gutter={[15, 15]}>
-                                    <Col span={24}>
-                                        <Row gutter={[10,10]}>
-                                            <Col span={24}>
-                                                <Pl
-                                                    text={'Добавить категорию'}
-                                                    shadow={true}
-                                                    onClick={() => setCatsModal(true)}
-                                                />
-                                            </Col>
+                                            </SwiperSlide>
                                             {
-                                                CategoryList?.length > 0 && (
-                                                    <Col span={24}>
-                                                        <Row gutter={[10,10]}>
-                                                            {
-                                                                CategoryList.map(i => (
-                                                                    <Col span={24}>
-                                                                        <Pl text={catsList?.find(f => f?.ID == i)?.Name} shadow
-                                                                        onDelete={() => onDeleteCategory(i)}    
-                                                                        />
-                                                                    </Col>
-                                                                ))
-                                                            }
-                                                        </Row>
-                                                    </Col>        
-                                                )
+                                                images?.map((i, index) => (
+                                                    <SwiperSlide style={{ width: '400px' }}>
+                                                        <div className={styles.main_item}>
+                                                            <StorieCard
+                                                                data={i}
+                                                                index={index}
+                                                                onDeleteStorie={onDeleteStorie}
+                                                                onEditStorie={onEditStorie}
+                                                            />
+                                                        </div>
+                                                    </SwiperSlide>
+                                                ))
                                             }
-                                            
-                                        </Row>
-                                    </Col>
-                                    <Col span={24}>
-                                        <Input shadow
-                                               maskType={String}
-                                               placeholder={'Заголовок (до 50-ти символов)'}
-                                               height={50}
-                                               value={TitleTextBundle}
-                                               onChange={e => setTitleTextBundle(e.target.value)}
-                                            error={TitleTextBundle.length > 50}
-                                        />
-                                    </Col>
-                                    <Col span={24}>
-                                        <Text
-                                            shadow
-                                            placeholder={'Текст в категории'}
-                                            height={160}
-                                            value={TextBundle}
-                                            onChange={e => setTextBundle(e.target.value)}
-                                        />
-                                    </Col>
-                                </Row>
-                            </Col>
-                            <Col span={24}>
-                                <Row gutter={[10, 10]}>
-                                    <Col span={24}>
-                                        <Checkbox
-                                            checked={AllowedDeliveryTypes?.find(item => item == delTypes.onlyDelivery.toString() || item == '2')}
-                                            onChange={(e) => {
-                                                if (e.target.checked) {
-                                                    if (AllowedDeliveryTypes.find(item => item == delTypes.onlyLocal.toString())) {
-                                                        setAllowedDeliveryTypes(['2'])
-                                                    } else {
-                                                        setAllowedDeliveryTypes(['0'])
-                                                    }
-                                                } else {
-                                                    if (AllowedDeliveryTypes.find(item => item == delTypes.onlyLocal.toString() || item == '2')) {
-                                                        setAllowedDeliveryTypes(['1'])
-                                                    } else {
-                                                        setAllowedDeliveryTypes(['3'])
-                                                    }
-                                                }
-                                            }}
-                                            shadow={true}
-                                            text={'Показывать для доставки'}
-                                            id={'deliveryTrueg'} />
-                                    </Col>
-                                    <Col span={24}>
-                                        <Checkbox
-                                            checked={AllowedDeliveryTypes?.find(item => item == delTypes.onlyLocal.toString() || item == '2')}
-                                            onChange={(e) => {
-                                                if (e.target.checked) {
-                                                    if (AllowedDeliveryTypes.find(item => item == delTypes.onlyDelivery.toString())) {
-                                                        setAllowedDeliveryTypes(['2'])
-                                                    } else {
-                                                        setAllowedDeliveryTypes(['1'])
-                                                    }
-                                                } else {
-                                                    if (AllowedDeliveryTypes.find(item => item == delTypes.onlyDelivery.toString() || item == '2')) {
-                                                        setAllowedDeliveryTypes(['0'])
-                                                    } else {
-                                                        setAllowedDeliveryTypes(['3'])
-                                                    }
-                                                }
-                                            }}
-                                            shadow={true}
-                                            text={'Показывать для самовывоза'}
-                                            id={'onlyLocalg'} />
-                                    </Col>
-                                    <Col span={24}>
-                                        <Checkbox
-                                            shadow={true}
-                                            text={'Скрыть в приложении'}
-                                            id={'HideInApp'}
-                                            onChange={e => e.target.checked ? setHideInApp('1') : setHideInApp('0')}
-                                            checked={HideInApp == '1'}
-                                        />
-                                    </Col>
-                                    <Col span={24}>
-                                        <Checkbox
-                                            checked={HideInOrg}
-                                            onChange={e => {
-                                                if (e.target.checked) {
-                                                    setHideInOrg(true)
-                                                } else {
-                                                    setHideInOrg(false)
-                                                    setOrgsList([])
-                                                }
-                                            }}
-                                            shadow={true}
-                                            text={'Скрыть в организациях'}
-                                            id={'rrr'} />
-                                    </Col>
-                                    {
-                                        HideInOrg ? (
-                                            <Col span={24}>
-                                                {
-                                                    orgsList?.length == 0 ? (
+                                        </Swiper>
 
-                                                        <Pl onClick={() => setHideOrgModal(true)} shadow={true} text={'Добавить организацию'} style={{ backgroundColor: '#fff' }} />
-                                                    ) : (
-                                                        <Pl onClick={() => setHideOrgModal(true)} shadow={true} text={`Выбрано организаций ${orgsList?.length}`} style={{ backgroundColor: '#fff', color: 'var(--violet)' }} />
+
+                                    </div>
+                                </Col>
+                                <Col span={24}>
+                                    <Row gutter={[15, 15]}>
+                                        <Col span={24}>
+                                            <Row gutter={[10, 10]}>
+                                                <Col span={24}>
+                                                    <Pl
+                                                        text={'Добавить категорию'}
+                                                        shadow={true}
+                                                        onClick={() => setCatsModal(true)}
+                                                    />
+                                                </Col>
+                                                {
+                                                    CategoryList?.length > 0 && (
+                                                        <Col span={24}>
+                                                            <Row gutter={[10, 10]}>
+                                                                {
+                                                                    CategoryList.map(i => (
+                                                                        <Col span={24}>
+                                                                            <Pl text={catsList?.find(f => f?.ID == i)?.Name} shadow
+                                                                                onDelete={() => onDeleteCategory(i)}
+                                                                            />
+                                                                        </Col>
+                                                                    ))
+                                                                }
+                                                            </Row>
+                                                        </Col>
                                                     )
                                                 }
-                                            </Col>
-                                        ) : null
-                                    }
-                                </Row>
-                            </Col>
-                            <Col span={24}>
-                                <Row gutter={[10, 10]}>
-                                    <Col span={24}>
-                                        <Button
-                                            disabled={!(images.length > 0 && PictureThumbnail) || TitleTextBundle.length > 50 || NamePreview.length > 50}
-                                            onClick={onSave}
-                                            load={saveLoad}
-                                            styles={{ width: '100%' }}
-                                            text={'Сохранить'}
-                                            before={<SaveIcon size={20} color={'#fff'} />} />
-                                    </Col>
-                                    {
-                                        data ? (
-                                            <Col span={24}>
-                                                <Button
-                                                    load={delLoad}
-                                                    onClick={deleteStories}
-                                                    styles={{ width: '100%' }}
-                                                    variant={'danger'}
-                                                    text={'Удалить сториз'}
-                                                    before={<BsTrash size={20} />} />
-                                            </Col>
-                                        ) : null
-                                    }
-                                </Row>
-                            </Col>
-                        </Row>
-                    </Col>
-                    <Col span={9}>
-                        <Row gutter={[20, 20]}>
-                            <Col span={24}>
-                                <div className='AddStorie__pim'>
-                                    {
-                                        PictureThumbnail ? (
-                                            <div className='AddStorie__pim_img'>
-                                                <img src={PictureThumbnail} alt="" />
-                                                <div className="AddStorie__pim_action">
-                                                    <Button
-                                                        variant={'danger'}
-                                                        text="Удалить"
-                                                        styles={{ padding: 8, width: '100%' }}
-                                                        justify={'center'}
-                                                        onClick={() => setPictureThumbnail(undefined)}
-                                                    />
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            <PlUpload
-                                                text={'Превью сториза'}
-                                                shadow
-                                                style={{
-                                                    width: 154,
-                                                    height: 170
-                                                }}
-                                                id={'prevImage'}
-                                                accept={'.png, .jpg, .jpeg'}
-                                                onChange={onPrevUpload}
+
+                                            </Row>
+                                        </Col>
+                                        <Col span={24}>
+                                            <Input shadow
+                                                maskType={String}
+                                                placeholder={'Заголовок (до 50-ти символов)'}
+                                                height={50}
+                                                value={TitleTextBundle}
+                                                onChange={e => setTitleTextBundle(e.target.value)}
+                                                error={TitleTextBundle.length > 50}
                                             />
-                                        )
-                                    }
-                                </div>
-                            </Col>
-                            <Col span={24}>
-                                <Row gutter={[10, 10]}>
-                                    <Input shadow
-                                           maskType={String}
-                                           placeholder={'Название превью (до 50-ти символов)'}
-                                           height={50}
-                                           value={NamePreview}
-                                           onChange={e => setNamePreview(e.target.value)}
-                                           error={NamePreview.length > 50}
-                                    />
-                                    <Col span={24}>
-                                        <h3 style={{margin: 0}} className="panel-label">Действие при нажатии на кнопку</h3>
-                                    </Col>
-                                    <Col span={24}>
-                                        <DropCollapse
-                                            selectItem={selectBtnAction}
-                                            justify={'justifyLeft'}
-                                            shadow={true}
-                                            beforeIcon
-                                            list={actionsOnBtn}
-                                            value={actionsOnBtn.find(item => Number(item.ID) == Number(ButtonTypeAction)).value} />
-                                    </Col>
-                                    {
-                                        ButtonTypeAction != 0 ? (
-                                            <>
-                                                <Col span={24} className="row-custom">
+                                        </Col>
+                                        <Col span={24}>
+                                            <Text
+                                                shadow
+                                                placeholder={'Текст в категории'}
+                                                height={160}
+                                                value={TextBundle}
+                                                onChange={e => setTextBundle(e.target.value)}
+                                            />
+                                        </Col>
+                                    </Row>
+                                </Col>
+                                <Col span={24}>
+                                    <Row gutter={[10, 10]}>
+                                        <Col span={24}>
+                                            <Checkbox
+                                                checked={AllowedDeliveryTypes?.find(item => item == delTypes.onlyDelivery.toString() || item == '2')}
+                                                onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        if (AllowedDeliveryTypes.find(item => item == delTypes.onlyLocal.toString())) {
+                                                            setAllowedDeliveryTypes(['2'])
+                                                        } else {
+                                                            setAllowedDeliveryTypes(['0'])
+                                                        }
+                                                    } else {
+                                                        if (AllowedDeliveryTypes.find(item => item == delTypes.onlyLocal.toString() || item == '2')) {
+                                                            setAllowedDeliveryTypes(['1'])
+                                                        } else {
+                                                            setAllowedDeliveryTypes(['3'])
+                                                        }
+                                                    }
+                                                }}
+                                                shadow={true}
+                                                text={'Показывать для доставки'}
+                                                id={'deliveryTrueg'} />
+                                        </Col>
+                                        <Col span={24}>
+                                            <Checkbox
+                                                checked={AllowedDeliveryTypes?.find(item => item == delTypes.onlyLocal.toString() || item == '2')}
+                                                onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        if (AllowedDeliveryTypes.find(item => item == delTypes.onlyDelivery.toString())) {
+                                                            setAllowedDeliveryTypes(['2'])
+                                                        } else {
+                                                            setAllowedDeliveryTypes(['1'])
+                                                        }
+                                                    } else {
+                                                        if (AllowedDeliveryTypes.find(item => item == delTypes.onlyDelivery.toString() || item == '2')) {
+                                                            setAllowedDeliveryTypes(['0'])
+                                                        } else {
+                                                            setAllowedDeliveryTypes(['3'])
+                                                        }
+                                                    }
+                                                }}
+                                                shadow={true}
+                                                text={'Показывать для самовывоза'}
+                                                id={'onlyLocalg'} />
+                                        </Col>
+                                        <Col span={24}>
+                                            <Checkbox
+                                                shadow={true}
+                                                text={'Скрыть в приложении'}
+                                                id={'HideInApp'}
+                                                onChange={e => e.target.checked ? setHideInApp('1') : setHideInApp('0')}
+                                                checked={HideInApp == '1'}
+                                            />
+                                        </Col>
+                                        <Col span={24}>
+                                            <Checkbox
+                                                checked={HideInOrg}
+                                                onChange={e => {
+                                                    if (e.target.checked) {
+                                                        setHideInOrg(true)
+                                                    } else {
+                                                        setHideInOrg(false)
+                                                        setOrgsList([])
+                                                    }
+                                                }}
+                                                shadow={true}
+                                                text={'Скрыть в организациях'}
+                                                id={'rrr'} />
+                                        </Col>
+                                        {
+                                            HideInOrg ? (
+                                                <Col span={24}>
                                                     {
-                                                        ButtonActionItemID && actionItem ? (
-                                                            ButtonTypeAction === 4 ? (
-                                                                <Input
-                                                                    shadow
-                                                                    value={ButtonAction}
-                                                                    onChange={e => setButtonAction(e.target.value)}
-                                                                    placeholder={'Ссылка'}
-                                                                    maskType={String}
-                                                                />
-                                                            ) : (
-                                                                <Pl
-                                                                    onClick={() => setActionItemModal(true)}
-                                                                    shadow={true}
-                                                                    text={actionItem?.Name}
-                                                                    style={{ justifyContent: 'flex-start', color: '#7B99FF', backgroundColor: '#fff' }} />
-                                                            )
+                                                        orgsList?.length == 0 ? (
+
+                                                            <Pl onClick={() => setHideOrgModal(true)} shadow={true} text={'Добавить организацию'} style={{ backgroundColor: '#fff' }} />
                                                         ) : (
-                                                            ButtonTypeAction === 4 ? (
-                                                                <Input
-                                                                    shadow
-                                                                    value={ButtonAction}
-                                                                    onChange={e => setButtonAction(e.target.value)}
-                                                                    placeholder={'Ссылка'}
-                                                                    maskType={String}
-                                                                />
-                                                            ) : (
-                                                                <Pl
-                                                                    onClick={() => setActionItemModal(true)}
-                                                                    shadow={true}
-                                                                    text={actionsOnBtn.find(item => item.ID == ButtonTypeAction).pl}
-                                                                    style={{ justifyContent: 'flex-start', color: '#7B99FF', backgroundColor: '#fff' }} />
-                                                            )
+                                                            <Pl onClick={() => setHideOrgModal(true)} shadow={true} text={`Выбрано организаций ${orgsList?.length}`} style={{ backgroundColor: '#fff', color: 'var(--violet)' }} />
                                                         )
                                                     }
-
                                                 </Col>
+                                            ) : null
+                                        }
+                                    </Row>
+                                </Col>
+                                <Col span={24}>
+                                    <Row gutter={[10, 10]}>
+                                        <Col span={24}>
+                                            <Button
+                                                disabled={!(images.length > 0 && PictureThumbnail) || TitleTextBundle.length > 50 || NamePreview.length > 50}
+                                                onClick={onSave}
+                                                load={saveLoad}
+                                                styles={{ width: '100%' }}
+                                                text={'Сохранить'}
+                                                before={<SaveIcon size={20} color={'#fff'} />} />
+                                        </Col>
+                                        {
+                                            data ? (
                                                 <Col span={24}>
-                                                    <Input
-                                                        value={ButtonText}
-                                                        onChange={e => setButtonText(e.target.value)}
-                                                        maskType={String}
-                                                        shadow
-                                                        placeholder={'Текст на кнопке'} />
+                                                    <Button
+                                                        load={delLoad}
+                                                        onClick={deleteStories}
+                                                        styles={{ width: '100%' }}
+                                                        variant={'danger'}
+                                                        text={'Удалить сториз'}
+                                                        before={<BsTrash size={20} />} />
                                                 </Col>
+                                            ) : null
+                                        }
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </Col>
+                        <Col span={9}>
+                            <Row gutter={[20, 20]}>
+                                <Col span={24}>
+                                    <div className='AddStorie__pim'>
+                                        {
+                                            PictureThumbnail ? (
+                                                <div className='AddStorie__pim_img'>
+                                                    <img src={PictureThumbnail} alt="" />
+                                                    <div className="AddStorie__pim_action">
+                                                        <Button
+                                                            variant={'danger'}
+                                                            text="Удалить"
+                                                            styles={{ padding: 8, width: '100%' }}
+                                                            justify={'center'}
+                                                            onClick={() => setPictureThumbnail(undefined)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <PlUpload
+                                                    text={'Превью сториза'}
+                                                    shadow
+                                                    style={{
+                                                        width: 154,
+                                                        height: 170
+                                                    }}
+                                                    id={'prevImage'}
+                                                    accept={'.png, .jpg, .jpeg'}
+                                                    onChange={onPrevUpload}
+                                                />
+                                            )
+                                        }
+                                    </div>
+                                </Col>
+                                <Col span={24}>
+                                    <Row gutter={[10, 10]}>
+                                        <Input shadow
+                                            maskType={String}
+                                            placeholder={'Название превью (до 50-ти символов)'}
+                                            height={50}
+                                            value={NamePreview}
+                                            onChange={e => setNamePreview(e.target.value)}
+                                            error={NamePreview.length > 50}
+                                        />
+                                        <Col span={24}>
+                                            <h3 style={{ margin: 0 }} className="panel-label">Действие при нажатии на кнопку</h3>
+                                        </Col>
+                                        <Col span={24}>
+                                            <DropCollapse
+                                                selectItem={selectBtnAction}
+                                                justify={'justifyLeft'}
+                                                shadow={true}
+                                                beforeIcon
+                                                list={actionsOnBtn}
+                                                value={actionsOnBtn.find(item => Number(item.ID) == Number(ButtonTypeAction)).value} />
+                                        </Col>
+                                        {
+                                            ButtonTypeAction != 0 ? (
+                                                <>
+                                                    <Col span={24} className="row-custom">
+                                                        {
+                                                            ButtonActionItemID && actionItem ? (
+                                                                ButtonTypeAction === 4 ? (
+                                                                    <Input
+                                                                        shadow
+                                                                        value={ButtonAction}
+                                                                        onChange={e => setButtonAction(e.target.value)}
+                                                                        placeholder={'Ссылка'}
+                                                                        maskType={String}
+                                                                    />
+                                                                ) : (
+                                                                    <Pl
+                                                                        onClick={() => setActionItemModal(true)}
+                                                                        shadow={true}
+                                                                        text={actionItem?.Name}
+                                                                        style={{ justifyContent: 'flex-start', color: '#7B99FF', backgroundColor: '#fff' }} />
+                                                                )
+                                                            ) : (
+                                                                ButtonTypeAction === 4 ? (
+                                                                    <Input
+                                                                        shadow
+                                                                        value={ButtonAction}
+                                                                        onChange={e => setButtonAction(e.target.value)}
+                                                                        placeholder={'Ссылка'}
+                                                                        maskType={String}
+                                                                    />
+                                                                ) : (
+                                                                    <Pl
+                                                                        onClick={() => setActionItemModal(true)}
+                                                                        shadow={true}
+                                                                        text={actionsOnBtn.find(item => item.ID == ButtonTypeAction).pl}
+                                                                        style={{ justifyContent: 'flex-start', color: '#7B99FF', backgroundColor: '#fff' }} />
+                                                                )
+                                                            )
+                                                        }
 
-                                            </>
-                                        ) : null
-                                    }
-                                </Row>
-                            </Col>
-                        </Row>
+                                                    </Col>
+                                                    <Col span={24}>
+                                                        <Input
+                                                            value={ButtonText}
+                                                            onChange={e => setButtonText(e.target.value)}
+                                                            maskType={String}
+                                                            shadow
+                                                            placeholder={'Текст на кнопке'} />
+                                                    </Col>
 
-                    </Col>
-                </Row>
-            </div>
+                                                </>
+                                            ) : null
+                                        }
+                                    </Row>
+                                </Col>
+                            </Row>
 
-        </Modal>
+                        </Col>
+                    </Row>
+                </div>
+
+            </Modal>
         </>
     )
 }
