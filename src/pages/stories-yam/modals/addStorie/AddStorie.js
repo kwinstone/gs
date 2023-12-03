@@ -32,6 +32,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode, Navigation } from 'swiper/modules';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { Title } from "chart.js";
+import {AddLastFrameModal} from "../AddLastFrameModal/AddLastFrameModal";
 
 
 const cs = new catService();
@@ -82,6 +83,8 @@ const AddStorie = ({
     const [hideOrgModal, setHideOrgModal] = useState(false)
     const [storieModal, setStorieModal] = useState(false)
     const [catsModal, setCatsModal] = useState(false)
+    const [lastFrameModal, setLastFrameModal] = useState(false)
+    const [lastFrameUrl, setLastFrameUrl] = useState('')
 
     // STORIE Data
     const [storieData, setStorieData] = useState(null)
@@ -134,6 +137,7 @@ const AddStorie = ({
                 setButtonTypeAction(data?.ButtonTypeAction)
                 setCategoryList(data?.CategoryList ? data?.CategoryList?.split(',') : [])
                 setDisabled(data?.Disabled)
+                setLastFrameUrl(data?.LastFrame)
                 if (data?.HiddenInOrganisations && data?.HiddenInOrganisations != '/') {
                     setHideInOrg(true)
                     let array = data.HiddenInOrganisations.split('//')
@@ -298,6 +302,8 @@ const AddStorie = ({
             }
             body.append('HideInApp', HideInApp)
             body.append('ItemOrder', ItemOrder)
+            body.append('LastFrame', lastFrameUrl)
+
             if (PictureThumbnail) {
                 body.append('ThumbnailPicture', PictureThumbnail)
             }
@@ -443,6 +449,12 @@ const AddStorie = ({
                     onCancel={() => setCatsModal(false)}
                     onSave={onSaveCategory}
                 />
+                <AddLastFrameModal
+                    isOpen={lastFrameModal}
+                    close={() => setLastFrameModal(false)}
+                    url={lastFrameUrl}
+                    changeUrl={setLastFrameUrl}
+                />
                 <h2 className="Modal__head">
                     {
                         data ? 'Редактировать сториз' : 'Добавить сториз'
@@ -495,6 +507,13 @@ const AddStorie = ({
                                     <Row gutter={[15, 15]}>
                                         <Col span={24}>
                                             <Row gutter={[10, 10]}>
+                                                <Col span={24}>
+                                                    <Pl
+                                                        text={'Добавить финальную заставку'}
+                                                        shadow={true}
+                                                        onClick={() => setLastFrameModal(true)}
+                                                    />
+                                                </Col>
                                                 <Col span={24}>
                                                     <Pl
                                                         text={'Добавить категорию'}
@@ -637,7 +656,7 @@ const AddStorie = ({
                                                 onClick={onSave}
                                                 load={saveLoad}
                                                 styles={{ width: '100%' }}
-                                                text={'Сохранить'}
+                                                text={'Сохранить изменения'}
                                                 before={<SaveIcon size={20} color={'#fff'} />} />
                                         </Col>
                                         {

@@ -1,5 +1,5 @@
 import './CreatePlatePage.scss';
-import { Row, Col } from 'antd';
+import {Row, Col, Tabs} from 'antd';
 import Pl from '../../../components/Pl/Pl';
 import PicItem from './components/PicItem/PicItem';
 import Input from '../../../components/Input/Input';
@@ -40,6 +40,7 @@ const delTypes = {
     both: 2,
     none: 3
 }
+
 
 const cs = new catService();
 const os = new orgService();
@@ -264,7 +265,6 @@ const CreatePlatePage = () => {
         })
     }
 
-
     return (
         <motion.div 
             {...pageEnterAnimProps}
@@ -301,7 +301,7 @@ const CreatePlatePage = () => {
                                     <Input
                                         maskType={String}
                                         value={Name}
-                                        onChange={(e) => setName(e.target.value)}  
+                                        onChange={(e) => setName(e.target.value)}
                                         placeholder={'Название блюда'}/>
                                 </Row>
                                 <Row className="row-custom">

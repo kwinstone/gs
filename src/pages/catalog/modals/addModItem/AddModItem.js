@@ -1,22 +1,24 @@
 import '../addMod/AddMod.scss';
-import { Modal } from 'antd';
+import {Col, Modal, Row, Tabs} from 'antd';
 import Input from '../../../../components/Input/Input';
-import {Row, Col} from 'antd';
 import Button from '../../../../components/Button/Button';
 import {BsTrash} from 'react-icons/bs';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
 import SaveIcon from '../../../../icons/SaveIcon/SaveIcon';
 import PlUpload from '../../../../components/PlUpload/PlUpload';
 import switchCrm from '../../../../funcs/switchCrm';
 import getBase64 from '../../../../funcs/getBase64';
-
+import {checkIsBao} from "../../../../utils/checkIsBao";
 
 
 const AddModItem = ({visible, close, update, data, onDelete}) => {
     const {settings} = useSelector(s => s)
+
     const [Name, setName] = useState('')
+    const [NameEn, setNameEn] = useState('')
+    const [NameKz, setNameKz] = useState('')
+
     const [Price, setPrice] = useState('')
     const [IIkoID, setIIkoID] = useState('')
     const [PictureUrl, setPictureUrl] = useState(null)
@@ -25,6 +27,9 @@ const AddModItem = ({visible, close, update, data, onDelete}) => {
     useEffect(() => {
         if(data) {
             setName(data.Name)
+            setNameEn(data?.Name_en)
+            setNameKz(data?.Name_kz)
+
             setPrice(data.Price)
             setIIkoID(data.IIkoID)
             setPictureUrl(data?.PictureUrl)
@@ -48,6 +53,8 @@ const AddModItem = ({visible, close, update, data, onDelete}) => {
                     {
                         IIkoID,
                         Name,
+                        Name_kz: NameKz,
+                        Name_en: NameEn,
                         Price,
                         Image: PictureUrl === null ? '' : PictureUrl
                     }
@@ -56,39 +63,19 @@ const AddModItem = ({visible, close, update, data, onDelete}) => {
             closeHandle()
         } else {
             update(state => {
-                
-                // !! изменение
-                delete data?.Image;
-                // !! изменение
-                
-                let m = state;
-                const rm = m.splice(data.index, 1, {
-                    ...data,
-                    IIkoID,
-                    Name,
-                    Price,
-                    PictureUrl: PictureUrl === null ? '' : PictureUrl
+                return state.map((el, i) => {
+                    if (i !== data.index) return el;
+
+                    return {
+                        ...el,
+                        IIkoID,
+                        Name,
+                        Name_kz: NameKz,
+                        Name_en: NameEn,
+                        Price,
+                        Image: PictureUrl === null ? '' : PictureUrl
+                    }
                 })
-                return [...m]
-                // if(state.find(item => item.ID == data.ID)) {
-                //     let r = m.splice(state.findIndex(item => item.ID == data.ID), 1, {
-                //         IIkoID,
-                //         Name,
-                //         Price
-                //     })
-    
-                //     return m;
-                // } else {
-                //     return [
-                //         ...state,
-                //         {
-                //             IIkoID,
-                //             Name,
-                //             Price
-                //         }
-                //     ]
-                // }
-                
             })
             closeHandle()
         }
@@ -100,6 +87,42 @@ const AddModItem = ({visible, close, update, data, onDelete}) => {
             setPictureUrl(res)
         })
     }
+
+    const nameTabs = [
+        {
+            key: '1',
+            label: 'Русский язык',
+            children: <Input
+                shadow={true}
+                value={Name}
+                maskType={String}
+                placeholder='Название'
+                onChange={e => setName(e.target.value)}
+            />,
+        },
+        {
+            key: '2',
+            label: 'Казахский язык',
+            children: <Input
+                shadow={true}
+                value={NameKz}
+                maskType={String}
+                placeholder='Название на казахском языке'
+                onChange={e => setNameKz(e.target.value)}
+            />,
+        },
+        {
+            key: '3',
+            label: 'Английский язык',
+            children: <Input
+                shadow={true}
+                value={NameEn}
+                maskType={String}
+                placeholder='Название на английском языке'
+                onChange={e => setNameEn(e.target.value)}
+            />,
+        },
+    ];
     
     return (
         <Modal className='Modal' width={650} open={visible} onCancel={closeHandle}>
@@ -143,13 +166,11 @@ const AddModItem = ({visible, close, update, data, onDelete}) => {
                                             
                                         </Col>
                                         <Col span={24}>
-                                            <Input
-                                                shadow={true}
-                                                value={Name}
-                                                maskType={String}
-                                                placeholder='Название'
-                                                onChange={e => setName(e.target.value)}
-                                                />
+                                            {
+                                                checkIsBao() ? (
+                                                    <Tabs defaultActiveKey="1" items={nameTabs} onChange={() => {}} style={{ width: '100%'}} />
+                                                ) : nameTabs[0].children
+                                            }
                                         </Col>
                                         <Col span={24}>
                                             {

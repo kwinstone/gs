@@ -231,6 +231,8 @@ const ClientsPage = () => {
                 } else {
                     //handle error
                 }
+            }).finally(() => {
+                setPushLoad(false)
             })
         } else {
             ans.sendPushToUsers(token, {
@@ -242,6 +244,8 @@ const ClientsPage = () => {
                 } else {
                     //handle error
                 }
+            }).finally(() => {
+                setPushLoad(false)
             })
         }
         

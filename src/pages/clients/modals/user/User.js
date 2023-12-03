@@ -45,6 +45,9 @@ const User = ({
     const [localEmail, setLocalEmail] = useState('')
     const [localPhone, setLocalPhone] = useState('')
 
+    const [Name, setName] = useState('');
+    const [DateOfBirth, setDateOfBirth] = useState('');
+
 
 
     const closeDiscount = () => setDiscount(false)
@@ -65,6 +68,10 @@ const User = ({
 
             setLocalEmail(data?.Email)
             setLocalPhone(data?.Phone)
+
+            setName(data?.Name)
+            setDateOfBirth(data?.DateOfBirth)
+
         }
     }, [data])
 
@@ -141,11 +148,13 @@ const User = ({
         anl.editUserData(token, {
             UserID: data?.ID,
             Email: localEmail,
-            Phone: localPhone
+            Phone: localPhone,
+            Name: Name,
+            DateOfBirth: DateOfBirth
         }).then(res => {
             console.log(res)
         }).finally(_ => setUserDataEditLoad(false))
-    }, [localEmail, localPhone, token, data])
+    }, [localEmail, localPhone, token, data, Name, DateOfBirth])
 
     const cancelUserData = () => {
         setLocalEmail(data?.Email)
@@ -190,6 +199,26 @@ const User = ({
                                         <Row gutter={[10,10]}>
                                             <Col span={24}>
                                                 <div className="User__body_info_item">
+                                                    <div className="User__body_info_item_label">ФИО</div>
+                                                    <Input
+                                                        maskType={String}
+                                                        shadow
+                                                        onChange={e => setName(e.target.value)}
+                                                        value={Name}/>
+                                                </div>
+                                            </Col>
+                                            <Col span={24}>
+                                                <div className="User__body_info_item">
+                                                    <div className="User__body_info_item_label">Дата рождения</div>
+                                                    <Input
+                                                        maskType={String}
+                                                        shadow
+                                                        onChange={e => setDateOfBirth(e.target.value)}
+                                                        value={DateOfBirth}/>
+                                                </div>
+                                            </Col>
+                                            <Col span={24}>
+                                                <div className="User__body_info_item">
                                                     <div className="User__body_info_item_label">E-mail</div>
                                                     <Input 
                                                         maskType={String} 
@@ -201,11 +230,14 @@ const User = ({
                                             {
                                                 checkDomain(<>
                                                     <Col span={24}>
-                                                        <div className="User__body_info_item">
+                                                        <div className="User__body_info_item inputDisabled">
                                                             <div className="User__body_info_item_label">Телефон</div>
                                                             <Input 
                                                                 maskType={String}  
-                                                                shadow 
+                                                                shadow
+                                                                type={'error'}
+                                                                readOnly
+                                                                disabled
                                                                 onChange={e => setLocalPhone(e.target.value)}
                                                                 value={localPhone}/>
                                                         </div>

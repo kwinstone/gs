@@ -1,5 +1,5 @@
 import './AddMod.scss';
-import { Modal } from 'antd';
+import {Modal, Tabs} from 'antd';
 import Input from '../../../../components/Input/Input';
 import {Row, Col} from 'antd';
 import Pl from '../../../../components/Pl/Pl';
@@ -14,6 +14,7 @@ import SaveIcon from '../../../../icons/SaveIcon/SaveIcon'
 import { useEffect } from 'react';
 import switchCrm from '../../../../funcs/switchCrm';
 import checkDomain from '../../../../funcs/checkDomain';
+import {checkIsBao} from "../../../../utils/checkIsBao";
 const cs = new catService();
 
 
@@ -35,7 +36,11 @@ const AddMod = ({visible, close, plateId, update}) => {
     const {token, settings} = useSelector(state => state)
     const [mods, setMods] = useState([])
     const [IsRequired, setIsRequired] = useState('0')
+
     const [Title, setTitle] = useState('')
+    const [TitleEn, setTitleEn] = useState('')
+    const [TitleKz, setTitleKz] = useState('')
+
     const [Type, setType] = useState({label: 'Выбор нескольких модификаторов', value: '2'})
     const [modCreateModal, setModCreateModal] = useState(false)
     const [saveLoad, setSaveLoad] = useState(false)
@@ -49,6 +54,8 @@ const AddMod = ({visible, close, plateId, update}) => {
         setMods([])
         setIsRequired('0')
         setTitle('')
+        setTitleEn('')
+        setTitleKz('')
         setIIkoID('')
         setType({label: 'Выбор нескольких модификаторов', value: '2'})
         setSelected(null)
@@ -64,7 +71,11 @@ const AddMod = ({visible, close, plateId, update}) => {
         cs.addMod(token, {
             IIkoID,
             ItemID: plateId,
+
             Title,
+            Title_en: checkIsBao() ? TitleEn : undefined,
+            Title_kz: checkIsBao() ? TitleKz : undefined,
+
             Type: Type.value,
             IsRequired,
             Modificators: mods,
@@ -116,6 +127,39 @@ const AddMod = ({visible, close, plateId, update}) => {
         addMod()
     }
 
+    const titleTabs = [
+        {
+            key: '1',
+            label: 'Русский язык',
+            children: <Input
+                maskType={String}
+                shadow={true}
+                value={Title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder={'Название группы'}/>,
+        },
+        {
+            key: '2',
+            label: 'Казахский язык',
+            children: <Input
+                maskType={String}
+                shadow={true}
+                value={TitleKz}
+                onChange={(e) => setTitleKz(e.target.value)}
+                placeholder={'Название группы на казахском языке'}/>,
+        },
+        {
+            key: '3',
+            label: 'Английский язык',
+            children: <Input
+                maskType={String}
+                shadow={true}
+                value={TitleEn}
+                onChange={(e) => setTitleEn(e.target.value)}
+                placeholder={'Название группы на английском языке'}/>,
+        },
+    ];
+
     return (
         <Modal className='Modal' width={650} open={visible} onCancel={closeHandle}>
             <AddModItem
@@ -127,12 +171,17 @@ const AddMod = ({visible, close, plateId, update}) => {
             <h2 className="Modal__head">Добавить группу модификаторов</h2>
             <div className="Modal__form">
                 <div className="Modal__form_row">
-                    <Input
-                        maskType={String}
-                        shadow={true}
-                        value={Title}
-                        onChange={(e) => setTitle(e.target.value)} 
-                        placeholder={'Название группы'}/>
+                    {
+                        checkIsBao() ? (
+                            <Tabs defaultActiveKey="1" items={titleTabs} onChange={() => {}} style={{ width: '100%'}} />
+                        ) : titleTabs[0].children
+                    }
+                    {/*<Input*/}
+                    {/*    maskType={String}*/}
+                    {/*    shadow={true}*/}
+                    {/*    value={Title}*/}
+                    {/*    onChange={(e) => setTitle(e.target.value)} */}
+                    {/*    placeholder={'Название группы'}/>*/}
                 </div>
                 <div className="Modal__form_row">
                     {

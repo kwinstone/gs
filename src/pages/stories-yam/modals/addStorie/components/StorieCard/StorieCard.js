@@ -83,7 +83,7 @@ const StorieCard = ({
           {
             media?.type?.includes('video') && (
               // <video autoPlay loop src={PictureThumbnail || URL.createObjectURL(media?.source)}></video>
-              <video autoPlay loop src={PictureThumbnail || media?.source}></video>
+              <video autoPlay loop src={PictureThumbnail || media?.source} muted></video>
             )
           }
           

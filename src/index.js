@@ -11,6 +11,7 @@ import { ConfigProvider } from 'antd';
 import ru from 'antd/es/locale/ru_RU';
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import "cropperjs/dist/cropper.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

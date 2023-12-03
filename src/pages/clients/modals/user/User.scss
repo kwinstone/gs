@@ -41,7 +41,7 @@
 
                 &_label {
                     white-space: nowrap;
-                    width: 100px;
+                    width: 140px;
                     margin-right: 20px;
                     flex: 0 0 auto;
                     font-weight: 600;
@@ -103,5 +103,12 @@
         display: flex;
 
         
+    }
+}
+
+.inputDisabled {
+    input {
+        background: #f3f3f3;
+        border: 1px solid #d8d8d8;
     }
 }

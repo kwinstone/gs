@@ -22,6 +22,7 @@
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-chartjs-2": "^5.2.0",
+    "react-cropper": "^2.3.3",
     "react-csv": "^2.2.2",
     "react-date-picker": "^9.2.0",
     "react-date-range": "^1.4.0",

@@ -1,5 +1,5 @@
 import '../addMod/AddMod.scss';
-import { Modal } from 'antd';
+import {Modal, Tabs} from 'antd';
 import Input from '../../../../components/Input/Input';
 import {Row, Col} from 'antd';
 import Pl from '../../../../components/Pl/Pl';
@@ -15,6 +15,7 @@ import catService from '../../../../services/catService';
 import SaveIcon from '../../../../icons/SaveIcon/SaveIcon';
 import switchCrm from '../../../../funcs/switchCrm';
 import checkDomain from '../../../../funcs/checkDomain';
+import {checkIsBao} from "../../../../utils/checkIsBao";
 
 
 const cs = new catService()
@@ -34,7 +35,11 @@ const EditMod = ({visible, close, selected, plateId, update}) => {
     const [groupModId, setGroupModId] = useState('')
     const [mods, setMods] = useState([])
     const [IsRequired, setIsRequired] = useState('0')
+
     const [Title, setTitle] = useState('')
+    const [TitleEn, setTitleEn] = useState('')
+    const [TitleKz, setTitleKz] = useState('')
+
     const [Type, setType] = useState({label: 'Выбор нескольких модификаторов', value: '2'})
     const [modCreateModal, setModCreateModal] = useState(false)
     const [edit, setEdit] = useState(false)
@@ -50,7 +55,11 @@ const EditMod = ({visible, close, selected, plateId, update}) => {
             setGroupModId(selected?.ID)
             setMods(selected?.Modificators)
             setIsRequired(selected?.IsRequired)
+
             setTitle(selected?.Title)
+            setTitleEn(selected?.Title_en)
+            setTitleKz(selected?.Title_kz)
+
             setType({
                 label: selected?.Type == '2' ? 'Выбор нескольких модификаторов' : 'Выбор одного из модификаторов',
                 value: selected?.Type
@@ -111,7 +120,11 @@ const EditMod = ({visible, close, selected, plateId, update}) => {
             ID: groupModId,
             IIkoID,
             ItemID: plateId,
+
             Title,
+            Title_en: checkIsBao() ? TitleEn : undefined,
+            Title_kz: checkIsBao() ? TitleKz : undefined,
+
             Type:Type?.value,
             IsRequired,
             Modificators: mods?.map(i => {
@@ -139,6 +152,39 @@ const EditMod = ({visible, close, selected, plateId, update}) => {
         })
     }
 
+    const titleTabs = [
+        {
+            key: '1',
+            label: 'Русский язык',
+            children: <Input
+                maskType={String}
+                shadow={true}
+                value={Title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder={'Название группы'}/>,
+        },
+        {
+            key: '2',
+            label: 'Казахский язык',
+            children: <Input
+                maskType={String}
+                shadow={true}
+                value={TitleKz}
+                onChange={(e) => setTitleKz(e.target.value)}
+                placeholder={'Название группы на казахском языке'}/>,
+        },
+        {
+            key: '3',
+            label: 'Английский язык',
+            children: <Input
+                maskType={String}
+                shadow={true}
+                value={TitleEn}
+                onChange={(e) => setTitleEn(e.target.value)}
+                placeholder={'Название группы на английском языке'}/>,
+        },
+    ];
+
     return (
         <Modal className='Modal' width={650} open={visible} onCancel={closeHandle}>
             <AddModItem 
@@ -150,12 +196,11 @@ const EditMod = ({visible, close, selected, plateId, update}) => {
             <h2 className="Modal__head">Добавить группу модификаторов</h2>
             <div className="Modal__form">
                 <div className="Modal__form_row">
-                    <Input
-                        shadow={true}
-                        value={Title}
-                        maskType={String}
-                        onChange={(e) => setTitle(e.target.value)} 
-                        placeholder={'Название группы'}/>
+                    {
+                        checkIsBao() ? (
+                            <Tabs defaultActiveKey="1" items={titleTabs} onChange={() => {}} style={{ width: '100%'}} />
+                        ) : titleTabs[0].children
+                    }
                 </div>
                 <div className="Modal__form_row">
                     {

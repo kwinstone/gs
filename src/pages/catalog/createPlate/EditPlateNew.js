@@ -1,5 +1,5 @@
 import './CreatePlatePage.scss';
-import { Row, Col } from 'antd';
+import {Row, Col, Tabs} from 'antd';
 import Pl from '../../../components/Pl/Pl';
 import PicItem from './components/PicItem/PicItem';
 import Input from '../../../components/Input/Input';
@@ -32,6 +32,7 @@ import SelectOrg from '../../../components/SelectOrg/SelectOrg';
 import EditHr from '../../../components/EditHr/EditHr';
 import SizeList from './components/SizeList/SizeList';
 import GiftList from './components/GiftList/GiftList';
+import {checkIsBao} from "../../../utils/checkIsBao";
 
 const LOCAL_STORAGE = window.localStorage;
 
@@ -62,10 +63,18 @@ const EditPlateNew = () => {
     const [ParentID, setParentID] = useState(0)
     const [IsSubCategory, setIsSubCategory] = useState(0)
     const [MaxCount, setMaxCount] = useState(99)
+
     const [Name, setName] = useState('')
+    const [NameEn, setNameEn] = useState('')
+    const [NameKz, setNameKz] = useState('')
+
     const [IsHit, setIsHit] = useState(0)
     const [IsNew, setIsNew] = useState(0)
+
     const [Composition, setComposition] = useState('')
+    const [CompositionEn, setCompositionEn] = useState('')
+    const [CompositionKz, setCompositionKz] = useState('')
+
     const [Calories, setCalories] = useState('')
     const [Carbohydrates, setCarbohydrates] = useState('')
     const [Fats, setFats] = useState('')
@@ -104,6 +113,63 @@ const EditPlateNew = () => {
     const openHideOrgModal = () => setHideOrgModal(true)
     const closeHideOrgModal = () => setHideOrgModal(false)
 
+    const nameTabs = [
+        {
+            key: '1',
+            label: 'Русский язык',
+            children: <Input
+                maskType={String}
+                value={Name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder={'Название блюда'}/>,
+        },
+        {
+            key: '2',
+            label: 'Казахский язык',
+            children: <Input
+                maskType={String}
+                value={NameKz}
+                onChange={(e) => setNameKz(e.target.value)}
+                placeholder={'Название блюда на казахском языке'}/>,
+        },
+        {
+            key: '3',
+            label: 'Английский язык',
+            children: <Input
+                maskType={String}
+                value={NameEn}
+                onChange={(e) => setNameEn(e.target.value)}
+                placeholder={'Название блюда английском языке'}/>,
+        },
+    ];
+
+    const compositionTabs = [
+        {
+            key: '1',
+            label: 'Русский язык',
+            children: <Text
+                value={Composition}
+                placeholder={'Состав'}
+                onChange={(e) => setComposition(e.target.value)}/>
+        },
+        {
+            key: '2',
+            label: 'Казахский язык',
+            children: <Text
+                value={CompositionKz}
+                placeholder={'Состав на казахском языке'}
+                onChange={(e) => setCompositionKz(e.target.value)}/>
+        },
+        {
+            key: '3',
+            label: 'Английский язык',
+            children: <Text
+                value={CompositionEn}
+                placeholder={'Состав на английском языке'}
+                onChange={(e) => setCompositionEn(e.target.value)}/>
+        },
+    ];
+
     // useEffect(() => {
     //     dispatch()
     // }, [])
@@ -133,9 +199,17 @@ const EditPlateNew = () => {
                 setParentID(thisPlate?.ParentID)
                 setIsSubCategory(thisPlate?.IsSubCategory)
                 setMaxCount(thisPlate?.MaxCount != '0' ? thisPlate?.MaxCount : '')
+
                 setName(thisPlate?.Name)
+                setNameEn(thisPlate?.Name_en)
+                setNameKz(thisPlate?.Name_kz)
+
                 setIsHit(thisPlate?.IsHit)
+
                 setComposition(thisPlate?.Composition != '0' ? thisPlate?.Composition : '')
+                setCompositionKz(thisPlate?.Composition_kz != '0' ? thisPlate?.Composition_kz : '')
+                setCompositionEn(thisPlate?.Composition_en != '0' ? thisPlate?.Composition_en : '')
+
                 setCalories(thisPlate?.Calories != '0' ? thisPlate?.Calories : '')
                 setCarbohydrates(thisPlate?.Carbohydrates != '0' ? thisPlate?.Carbohydrates : '')
                 setFats(thisPlate?.Fats != '0' ? thisPlate?.Fats : '') 
@@ -326,6 +400,14 @@ const EditPlateNew = () => {
         data.append('IsNew', IsNew)
         // data.append('Composition', Composition)
         data.append('Composition', Composition)
+
+        if (checkIsBao()) {
+            data.append('Name_en', NameEn)
+            data.append('Name_kz', NameKz)
+
+            data.append('Composition_en', CompositionEn)
+            data.append('Composition_kz', CompositionKz)
+        }
         // checkNumValue(data, 'Composition', Composition)
         // data.append('Calories', Calories)
         data.append('Calories', Calories)
@@ -675,11 +757,11 @@ const EditPlateNew = () => {
                                 }
                                 
                                 <Row className="row-custom">
-                                    <Input
-                                        maskType={String}
-                                        value={Name}
-                                        onChange={(e) => setName(e.target.value)}  
-                                        placeholder={'Название блюда'}/>
+                                    {
+                                        checkIsBao() ? (
+                                            <Tabs defaultActiveKey="1" items={nameTabs} onChange={() => {}} style={{ width: '100%'}} />
+                                        ) : nameTabs[0].children
+                                    }
                                 </Row>
                                 {
                                     switchCrm(settings, 
@@ -798,10 +880,11 @@ const EditPlateNew = () => {
                                         />
                                 </Row>
                                 <Row className="row-custom">
-                                    <Text
-                                        value={Composition}
-                                        placeholder={'Состав'}
-                                        onChange={(e) => setComposition(e.target.value)}/>
+                                    {
+                                        checkIsBao() ? (
+                                            <Tabs defaultActiveKey="1" items={compositionTabs} onChange={() => {}} style={{ width: '100%'}} />
+                                        ) : compositionTabs[0].children
+                                    }
                                 </Row>
                                 <Row className="row-custom">
                                     <Input
@@ -1002,9 +1085,9 @@ const EditPlateNew = () => {
                                         <Row className='row-custom'>
                                             <Mod plateId={plateId} list={modList}/>
                                         </Row>
-                                        <Row className='row-custom'>
-                                            <DefList plateId={plateId} head={'Список аллергенов'} addText={'Добавить аллерген'}/>
-                                        </Row>
+                                        {/*<Row className='row-custom'>*/}
+                                        {/*    <DefList plateId={plateId} head={'Список аллергенов'} addText={'Добавить аллерген'}/>*/}
+                                        {/*</Row>*/}
                                         <Row className='row-custom'>
                                             <RecList plateId={plateId} head={'Список рекомендаций'} addText={'Добавить блюдо'}/>
                                         </Row>
