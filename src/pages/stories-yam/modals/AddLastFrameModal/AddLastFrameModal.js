@@ -50,7 +50,7 @@ export const AddLastFrameModal = ({ isOpen, close, url, changeUrl }) => {
                     {
                         !lastFrameURL && (
                             <PlUpload
-                                text={'Превью сториза'}
+                                text={'Добавить финальный кадр'}
                                 shadow
                                 id={'prevImage'}
                                 accept={'image/png, image/jpeg, image/jpg'}

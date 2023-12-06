@@ -33,6 +33,7 @@ import { FreeMode, Navigation } from 'swiper/modules';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { Title } from "chart.js";
 import {AddLastFrameModal} from "../AddLastFrameModal/AddLastFrameModal";
+import {CropPreview} from "../CropPreview/CropPreview";
 
 
 const cs = new catService();
@@ -274,12 +275,16 @@ const AddStorie = ({
         }
     }
 
+    const [previewCrop, setPreviewCrop] = useState();
+
+
     const onPrevUpload = (e) => {
-        setPrevUploadLoad(true)
-        const file = e.target.files[0]
-        getBase64(file).then(res => {
-            setPictureThumbnail(res)
-        }).finally(() => setPrevUploadLoad(false))
+        // setPrevUploadLoad(true)
+        // const file = e.target.files[0]
+        setPreviewCrop(URL.createObjectURL(e.target.files[0]));
+        // getBase64(file).then(res => {
+        //     setPictureThumbnail(res)
+        // }).finally(() => setPrevUploadLoad(false))
     }
 
     const onSave = () => {
@@ -420,6 +425,12 @@ const AddStorie = ({
     return (
         <>
             <Modal className={getClassNames(["Modal", styles.wrapper])} open={visible} width={1000} onCancel={closeHandle}>
+                <CropPreview
+                    isOpen={!!previewCrop}
+                    onClose={() => setPreviewCrop()}
+                    src={previewCrop}
+                    onChange={setPictureThumbnail}
+                />
                 <SelectOrg
                     list={orgs}
                     selected={orgsList}
@@ -507,13 +518,6 @@ const AddStorie = ({
                                     <Row gutter={[15, 15]}>
                                         <Col span={24}>
                                             <Row gutter={[10, 10]}>
-                                                <Col span={24}>
-                                                    <Pl
-                                                        text={'Добавить финальную заставку'}
-                                                        shadow={true}
-                                                        onClick={() => setLastFrameModal(true)}
-                                                    />
-                                                </Col>
                                                 <Col span={24}>
                                                     <Pl
                                                         text={'Добавить категорию'}
@@ -720,6 +724,23 @@ const AddStorie = ({
                                             onChange={e => setNamePreview(e.target.value)}
                                             error={NamePreview.length > 50}
                                         />
+                                        <Col span={24}>
+                                            <h3 style={{ margin: 0 }} className="panel-label">Финальная заставка</h3>
+                                        </Col>
+                                        <Col span={24}>
+                                            {
+                                                lastFrameUrl ? (
+                                                    <img src={lastFrameUrl} alt={''} style={{ width: '100%' }} />
+                                                ) : (<></>)
+                                            }
+                                        </Col>
+                                        <Col span={24}>
+                                            <Pl
+                                                text={lastFrameUrl ? 'Изменить финальную заставку' : 'Добавить финальную заставку'}
+                                                shadow={true}
+                                                onClick={() => setLastFrameModal(true)}
+                                            />
+                                        </Col>
                                         <Col span={24}>
                                             <h3 style={{ margin: 0 }} className="panel-label">Действие при нажатии на кнопку</h3>
                                         </Col>

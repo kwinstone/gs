@@ -67,7 +67,7 @@ const BasketPage = () => {
     const [IsHaveMultipleGifts, setIsHaveMultipleGifts] = useState('0')
     const [MaxBonusesPayment, setMaxBonusesPayment] = useState('')
     const [MaxBonusesPercent, setMaxBonusesPercent] = useState('')
-    const [BonusesPercent, setBonusesPercent] = useState('')
+    // const [BonusesPercent, setBonusesPercent] = useState('')
     const [OnlyPayOnlineWhen, setOnlyPayOnlineWhen] = useState('0')
     const [OrderBonusesGetMax, setOrderBonusesGetMax] = useState('')
     const [OrderBonusesGetPercent, setOrderBonusesGetPercent] = useState('')
@@ -385,9 +385,9 @@ const BasketPage = () => {
                         </Col>
                         <Col span={12}>
                             <Row className="row-custom">
-                                <Input 
-                                    value={BonusesPercent}
-                                    onChange={e => setBonusesPercent(e.target.value)}
+                                <Input
+                                    value={MaxBonusesPercent}
+                                    onChange={e => setMaxBonusesPercent(e.target.value)}
                                     maskType={String}
                                     placeholder={'Процент бонусов для оплаты'}/>
                             </Row>
@@ -422,8 +422,8 @@ const BasketPage = () => {
                             </Row>
                             <Row className="row-custom">
                                 <Input 
-                                    value={MaxBonusesPercent}
-                                    onChange={e => setMaxBonusesPercent(e.target.value)}
+                                    value={OrderBonusesGetMax}
+                                    onChange={e => setOrderBonusesGetMax(e.target.value)}
                                     maskType={String}
                                     placeholder={'Максимальный процент получаемых бонусов'}/>
                             </Row>
