@@ -77,7 +77,7 @@ const OrdersPage = () => {
                 setList(res?.Orders)
                 
                 setTotalPrice(res?.TotalPrice)
-                setTotalOrders(Number(res.TotalCount))
+                setTotalOrders(Number(res?.TotalCount))
                 setTotalPages(Math.ceil(Number(res?.TotalCount) / Limit))
                  
             }).finally(_ => {
