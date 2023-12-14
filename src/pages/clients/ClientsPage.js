@@ -122,6 +122,10 @@ const ClientsPage = () => {
         }
     }
 
+    const updateUsersTrigger = () => {
+        getUsers()
+    }
+
     useEffect(() => {
         getUsers()
     }, [token, OrderBy, OrderType, Search, Limit, Offset,filter])
@@ -310,6 +314,7 @@ const ClientsPage = () => {
             <User 
                 updateList={getUsers}
                 data={selectedUser}
+                updateTrigger={updateUsersTrigger}
                 visible={user} 
                 close={closeUser}
                 name={selectedUser?.name}  

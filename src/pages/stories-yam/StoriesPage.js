@@ -186,6 +186,7 @@ const StoriesPageYm = () => {
                                     <MiniStorie
                                       openStorie={openAddStorie}
                                       selectStorie={setSelectedStorie}
+                                      data={item}
                                       {...item} />
                                   )
                                 }

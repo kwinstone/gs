@@ -18,6 +18,7 @@ import Email from '../email/Email';
 import { useCallback } from 'react';
 import checkDomain from '../../../../funcs/checkDomain';
 import { message as antMessage } from 'antd';
+import {toast} from "react-toastify";
 
 const anl = new anService();
 
@@ -26,7 +27,8 @@ const User = ({
     visible, 
     close, 
     updateList,
-    data
+    data,
+    updateTrigger
 }) => {
     const {token} = useSelector(state => state)
     const [discount, setDiscount] = useState(false)
@@ -153,6 +155,9 @@ const User = ({
             DateOfBirth: DateOfBirth
         }).then(res => {
             console.log(res)
+            closeHandle()
+            toast.success('Информация о клиенте обновлена')
+            updateTrigger()
         }).finally(_ => setUserDataEditLoad(false))
     }, [localEmail, localPhone, token, data, Name, DateOfBirth])
 
@@ -251,7 +256,7 @@ const User = ({
                                             </Col>
                                             <Col span={12}>
                                                 <div className="User__body_info_item">
-                                                    <Button onClick={cancelUserData} styles={{width: '100%'}} text={'Отменить'} variant={'danger'}/>
+                                                    {/*<Button onClick={cancelUserData} styles={{width: '100%'}} text={'Отменить'} variant={'danger'}/>*/}
                                                 </div>
                                             </Col>
                                         </Row>

@@ -135,7 +135,7 @@ const Settings = ({
                                             <button onClick={deleteStorieFromSet} className="Settings__body_selects_item_btn">
                                                 <BsTrash/>
                                             </button>
-                                            <img src={startSelected?.images[0]?.PictureThumbnail} alt="" />
+                                            <img src={startSelected?.PictureThumbnail} alt="" />
                                         </div>
                                     </>
                                 ) : null

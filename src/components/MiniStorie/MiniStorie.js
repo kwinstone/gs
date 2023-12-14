@@ -8,7 +8,9 @@ const MiniStorie = ({
   data
 }) => {
   const {
-    images
+    images,
+    PictureThumbnail,
+    Picture
   } = data || {}
 
   const [tm, setTm] = useState(false)
@@ -35,7 +37,7 @@ const MiniStorie = ({
   return (
     <div className="MiniStorie" onMouseUp={checkClick} onMouseDown={clickHandle}>
       <div className="MiniStorie__img">
-        <img src={images[0]?.PictureThumbnail} alt="" />
+        <img src={PictureThumbnail || images?.[0]?.PictureThumbnail || Picture} alt="" />
       </div>
     </div>
   )

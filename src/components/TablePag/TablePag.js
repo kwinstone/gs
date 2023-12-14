@@ -20,6 +20,7 @@ const TablePag = ({
                 </button>
                 <Pagination
                     pageSize={pageSize}
+                    showSizeChanger={false}
                     total={total}
                     current={current}
                     onChange={onChange}

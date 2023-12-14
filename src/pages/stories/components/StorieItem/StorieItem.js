@@ -38,7 +38,6 @@ const StorieItem = ({
             openStorie()
         }
     }
-    console.log('Item', data)
 
     return (
         <div className={"StorieItem" + (startSelected?.ID == ID ? ' selected ' : '')}>

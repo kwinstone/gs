@@ -204,6 +204,7 @@ const ClientsFilter = ({
     useEffect(() => {
         if(token) {
             anl.getCities(token).then(res => {
+                console.log('res', res)
                 setCities(res?.Cities?.map((i,index) => ({label: i.City, value: index + 1, ID: index + 1})))
             })
         }
@@ -217,7 +218,7 @@ const ClientsFilter = ({
             <div className='ClientsFilter__main'>
                 <Row gutter={[20,20]}>
                     <Col span={12}>
-                        <Row gutter={[10,10]}>
+                        <Row gutter={[18,18]}>
                             <Col span={24}>
                                 <Input
                                     placeholder={'Номера телефонов'}
@@ -325,6 +326,7 @@ const ClientsFilter = ({
                                             placeholder={'Город'}
                                             value={City?.value}
                                             onSelect={(e,v) => {
+                                                console.log('f', e,v)
                                                 setCity(e)
                                             }}
                                             />
@@ -334,7 +336,7 @@ const ClientsFilter = ({
                         </Row>
                     </Col>
                     <Col span={12}>
-                        <Row gutter={[10,10]}>
+                        <Row gutter={[18,18]}>
                             <Col span={12}>
                                 <Input
                                     maskType={'0000-00-00'}
