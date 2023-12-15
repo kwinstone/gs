@@ -1,7 +1,7 @@
 import './OrgsCreatePage.scss';
 import Sidebar from '../../../components/Sidebar/Sidebar';
 import HeaderProfile from '../../../components/HeaderProfile/HeaderProfile';
-import { Row, Col, message } from 'antd';
+import {Row, Col, message, Tabs} from 'antd';
 import Pl from '../../../components/Pl/Pl';
 import Button from '../../../components/Button/Button';
 import Input from '../../../components/Input/Input';
@@ -40,6 +40,7 @@ import switchCrm from '../../../funcs/switchCrm';
 import checkNull from '../../../funcs/checkNull';
 import PaymentEdit from './modals/PaymentEdit/PaymentEdit';
 import checkDomain from '../../../funcs/checkDomain';
+import {checkIsBao} from "../../../utils/checkIsBao";
 
 const os = new orgService();
 const pmValueFind = (value) => {
@@ -78,7 +79,41 @@ const OrgsNewPage = () => {
     
     const [OrganisationBrand, setOrganisationBrand] = useState('')
     const [ItemOrder, setItemOrder] = useState(0)
+
     const [Name, setName] = useState('')
+    const [NameEn, setNameEn] = useState('')
+    const [NameKz, setNameKz] = useState('')
+
+    const nameTabs = [
+        {
+            key: '1',
+            label: 'Русский язык',
+            children: <Input
+                maskType={String}
+                value={Name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder={'Название организации'}/>
+        },
+        {
+            key: '2',
+            label: 'Казахский язык',
+            children: <Input
+                maskType={String}
+                value={NameKz}
+                onChange={(e) => setNameKz(e.target.value)}
+                placeholder={'Название организации'}/>
+        },
+        {
+            key: '3',
+            label: 'Английский язык',
+            children: <Input
+                maskType={String}
+                value={NameEn}
+                onChange={(e) => setNameEn(e.target.value)}
+                placeholder={'Название организации'}/>
+        },
+    ];
+
     const [Description, setDescription] = useState('')
     const [ThumbnailPicture, setThumbnailPicture] = useState(null)
     const [Address, setAddress] = useState('')
@@ -159,12 +194,15 @@ const OrgsNewPage = () => {
                 setOrganisationBrand(thisOrg?.OrganisationBrand)
                 setItemOrder(thisOrg?.ItemOrder)
                 setName(checkNull(thisOrg?.Name))
+                setNameKz(checkNull(thisOrg?.Name_kz))
+                setNameEn(checkNull(thisOrg?.Name_en))
+
                 setDescription(checkNull(thisOrg?.Description))
                 setThumbnailPrev(thisOrg?.ThumbnailPicture)
                 setAddress(checkNull(thisOrg?.Address))
                 setPhone(checkNull(thisOrg?.Phone))
-                setMinPriceForLocalSale(thisOrg?.MinPriceForLocalSale != '0' ? thisOrg.MinPriceForLocalSale : '')
-                setLocalOrderSale(thisOrg?.LocalOrderSale != '0' ? thisOrg.LocalOrderSale : '')
+                setMinPriceForLocalSale(thisOrg?.MinPriceForLocalSale != '0' ? thisOrg?.MinPriceForLocalSale : '')
+                setLocalOrderSale(thisOrg?.LocalOrderSale != '0' ? thisOrg?.LocalOrderSale : '')
                 setIsHaveDelivery(checkNull(thisOrg?.IsHaveDelivery, true))
                 setIsHaveLocalOrder(checkNull(thisOrg?.IsHaveLocalOrder, true))
                 setTimetableDescription(checkNull(thisOrg?.TimetableDescription))
@@ -185,12 +223,12 @@ const OrgsNewPage = () => {
                 setNotifyWhenIIkoErrors(checkNull(thisOrg?.NotifyWhenIIkoErrors, true))
                 setNotifyWhenOrderChanges(checkNull(thisOrg?.NotifyWhenOrderChanges, true))
                 setTimezone(thisOrg?.Timezone)
-                setCountTimeStepsPreorder(thisOrg?.CountTimeStepsPreorder != '0' ? thisOrg.CountTimeStepsPreorder : '')
+                setCountTimeStepsPreorder(thisOrg?.CountTimeStepsPreorder != '0' ? thisOrg?.CountTimeStepsPreorder : '')
                 setDisabled(checkNull(thisOrg?.Disabled, true))
                 setTimeStep(checkNull(thisOrg?.TimeStep))
                 setHavePreorder(checkNull(thisOrg?.HavePreorder, true))
-                setCountTimeStepsReservation(thisOrg?.CountTimeStepsReservation != '0' ? thisOrg.CountTimeStepsReservation : '')
-                setTimeStepReservation(thisOrg?.TimeStepReservation != '0' ? thisOrg.TimeStepReservation : '')
+                setCountTimeStepsReservation(thisOrg?.CountTimeStepsReservation != '0' ? thisOrg?.CountTimeStepsReservation : '')
+                setTimeStepReservation(thisOrg?.TimeStepReservation != '0' ? thisOrg?.TimeStepReservation : '')
                 setHaveReservation(checkNull(thisOrg?.HaveReservation, true))
                 setNotifyWhenNewReservation(checkNull(thisOrg?.NotifyWhenNewReservation, true))
                 setWeekTimes([
@@ -255,12 +293,14 @@ const OrgsNewPage = () => {
                 setOrganisationBrand(thisOrg?.OrganisationBrand)
                 setItemOrder(thisOrg?.ItemOrder)
                 setName(checkNull(thisOrg?.Name))
+                setNameKz(checkNull(thisOrg?.Name_kz))
+                setNameEn(checkNull(thisOrg?.Name_en))
                 setDescription(checkNull(thisOrg?.Description))
                 setThumbnailPrev(thisOrg?.ThumbnailPicture)
                 setAddress(checkNull(thisOrg?.Address))
                 setPhone(checkNull(thisOrg?.Phone))
-                setMinPriceForLocalSale(thisOrg?.MinPriceForLocalSale != '0' ? thisOrg.MinPriceForLocalSale : '')
-                setLocalOrderSale(thisOrg?.LocalOrderSale != '0' ? thisOrg.LocalOrderSale : '')
+                setMinPriceForLocalSale(thisOrg?.MinPriceForLocalSale != '0' ? thisOrg?.MinPriceForLocalSale : '')
+                setLocalOrderSale(thisOrg?.LocalOrderSale != '0' ? thisOrg?.LocalOrderSale : '')
                 setIsHaveDelivery(checkNull(thisOrg?.IsHaveDelivery, true))
                 setIsHaveLocalOrder(checkNull(thisOrg?.IsHaveLocalOrder, true))
                 setTimetableDescription(checkNull(thisOrg?.TimetableDescription))
@@ -280,12 +320,12 @@ const OrgsNewPage = () => {
                 setNotifyWhenIIkoErrors(checkNull(thisOrg?.NotifyWhenIIkoErrors, true))
                 setNotifyWhenOrderChanges(checkNull(thisOrg?.NotifyWhenOrderChanges, true))
                 setTimezone(thisOrg?.Timezone)
-                setCountTimeStepsPreorder(thisOrg?.CountTimeStepsPreorder != '0' ? thisOrg.CountTimeStepsPreorder : '')
+                setCountTimeStepsPreorder(thisOrg?.CountTimeStepsPreorder != '0' ? thisOrg?.CountTimeStepsPreorder : '')
                 setDisabled(checkNull(thisOrg?.Disabled, true))
                 setTimeStep(checkNull(thisOrg?.TimeStep))
                 setHavePreorder(checkNull(thisOrg?.HavePreorder, true))
-                setCountTimeStepsReservation(thisOrg?.CountTimeStepsReservation != '0' ? thisOrg.CountTimeStepsReservation : '')
-                setTimeStepReservation(thisOrg?.TimeStepReservation != '0' ? thisOrg.TimeStepReservation : '')
+                setCountTimeStepsReservation(thisOrg?.CountTimeStepsReservation != '0' ? thisOrg?.CountTimeStepsReservation : '')
+                setTimeStepReservation(thisOrg?.TimeStepReservation != '0' ? thisOrg?.TimeStepReservation : '')
                 setHaveReservation(checkNull(thisOrg?.HaveReservation, true))
                 setNotifyWhenNewReservation(checkNull(thisOrg?.NotifyWhenNewReservation, true))
                 setWeekTimes([
@@ -449,6 +489,9 @@ const OrgsNewPage = () => {
         data.append('OrganisationBrand', brandId != 'nobrand' && brandId ? brandId : 0)
         data.append('ItemOrder', ItemOrder)
         data.append('Name', Name)
+        data.append('Name_kz', NameKz)
+        data.append('Name_en', NameEn)
+
         data.append('Description', Description)
         if(ThumbnailPicture) {
             data.append('ThumbnailPicture', ThumbnailPicture)
@@ -816,7 +859,11 @@ const OrgsNewPage = () => {
                                         />
                                 </Row>
                                 <Row className='row-custom'>
-                                    <Input maskType={String} value={Name} onChange={(e) => setName(e.target.value)} placeholder={'Название организации'}/>
+                                    {
+                                        checkIsBao() ? (
+                                            <Tabs defaultActiveKey="1" items={nameTabs} onChange={() => {}} style={{ width: '100%'}} />
+                                        ) : nameTabs[0].children
+                                    }
                                 </Row>
                                 <Row className='row-custom'>
                                     <Text value={Description} onChange={(e) => setDescription(e.target.value)} height={180} placeholder={'Описание'}/>

@@ -52,7 +52,7 @@ const timeTransform = (time, index) => {
             //     start: timeFormat(Number(time?.split('-')[0]) / 60),
             //     end: timeFormat(_.round(Number(time?.split('-')[1]) / 60, 2))
             // },
-            values: time.map(i => ({
+            values: time?.map(i => ({
                 start: timeFormat(Number(i?.split('-')[0]) / 60),
                 end: timeFormat(_.round(Number(i?.split('-')[1]) / 60, 2))
             })),
