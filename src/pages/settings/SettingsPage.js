@@ -179,6 +179,8 @@ const SettingsPage = () => {
                                         setSelectedArticle({
                                             name: 'Бонусы',
                                             text: Articles?.Bonuses,
+                                            textEn: Articles?.Bonuses_en,
+                                            textKz: Articles?.Bonuses_kz,
                                             index: 0
                                         })
                                         openEditArt();
@@ -193,6 +195,8 @@ const SettingsPage = () => {
                                         setSelectedArticle({
                                             name: 'Доставка и оплата',
                                             text: Articles?.DeliveryAndPayment,
+                                            textEn: Articles?.DeliveryAndPayment_en,
+                                            textKz: Articles?.DeliveryAndPayment_kz,
                                             index: 1
                                         })
                                         openEditArt()
@@ -208,6 +212,8 @@ const SettingsPage = () => {
                                         setSelectedArticle({
                                             name: 'Политика конфидециальности',
                                             text: Articles?.PrivacyPolicy,
+                                            textEn: Articles?.PrivacyPolicy_en,
+                                            textKz: Articles?.PrivacyPolicy_kz,
                                             index: 2
                                         })
                                         openEditArt()

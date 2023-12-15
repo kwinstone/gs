@@ -50,7 +50,8 @@ const Text = ({
             }}
             style={{height: height, ...style}} 
             name={name} 
-            value={value} 
+            value={value}
+                // defaultValue={value}
             id={id} 
             ref={inpRef}
             className={"Text" + (shadow ? ' shadow ' : '')} 

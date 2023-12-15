@@ -1,11 +1,12 @@
 import './AddMassModal.scss';
-import { message, Modal } from 'antd';
+import {message, Modal, Tabs} from 'antd';
 import Input from '../../../../components/Input/Input';
 import Button from '../../../../components/Button/Button';
 import {BsTrash} from 'react-icons/bs';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import catService from '../../../../services/catService';
+import {checkIsBao} from "../../../../utils/checkIsBao";
 
 
 const cs = new catService()
@@ -13,10 +14,46 @@ const cs = new catService()
 const AddMassModal = ({visible, close, update, plateId}) => {
     const {token} = useSelector(state => state);
     const [Mass, setMass] = useState('')
+    const [MassEn, setMassEn] = useState('')
+    const [MassKz, setMassKz] = useState('')
+
     const [Price, setPrice] = useState('')
     const [SalePrice, setSalePrice] = useState('')
     const [load, setLoad] = useState(false)
 
+
+    const massTabs = [
+        {
+            key: '1',
+            label: 'Русский язык',
+            children: <Input
+                shadow
+                value={Mass}
+                maskType={String}
+                onChange={e => setMass(e.target.value)}
+                placeholder={'Масса'}/>
+        },
+        {
+            key: '2',
+            label: 'Казахский язык',
+            children: <Input
+                shadow
+                value={MassKz}
+                maskType={String}
+                onChange={e => setMassKz(e.target.value)}
+                placeholder={'Масса'}/>
+        },
+        {
+            key: '3',
+            label: 'Английский язык',
+            children: <Input
+                shadow
+                value={MassEn}
+                maskType={String}
+                onChange={e => setMassEn(e.target.value)}
+                placeholder={'Масса'}/>
+        },
+    ];
 
 
 
@@ -32,6 +69,8 @@ const AddMassModal = ({visible, close, update, plateId}) => {
         const body = {
             ItemID: plateId,
             Mass,
+            Mass_en: MassEn,
+            Mass_kz: MassKz,
             Price,
             SalePrice: SalePrice ? SalePrice : 0
         }
@@ -51,12 +90,11 @@ const AddMassModal = ({visible, close, update, plateId}) => {
             <h2 className="Modal__head">Добавить массу</h2>
             <div className="Modal__form">
                 <div className="Modal__form_row">
-                    <Input
-                        shadow 
-                        value={Mass}
-                        maskType={String}
-                        onChange={e => setMass(e.target.value)}
-                        placeholder={'Масса'}/>
+                    {
+                        checkIsBao() ? (
+                            <Tabs defaultActiveKey="1" items={massTabs} onChange={() => {}} style={{ width: '100%'}} />
+                        ) : massTabs[0].children
+                    }
                 </div>
                 <div className="Modal__form_row">
                     <Input
