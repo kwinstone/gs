@@ -1,4 +1,4 @@
-import { Modal, Row, Col, message } from 'antd';
+import {Modal, Row, Col, message, Tabs} from 'antd';
 import './CreateCategory.scss';
 import { useState, useEffect, useCallback } from 'react';
 import Input from '../../../../components/Input/Input';
@@ -19,6 +19,7 @@ import EditHr from '../../../../components/EditHr/EditHr';
 import weektimes from './weektimes';
 import TimeSelect from '../../../orgs/orgsCreate/components/timeSelect/TimeSelect';
 import {MdContentCopy} from 'react-icons/md'
+import {checkIsBao} from "../../../../utils/checkIsBao";
 
 
 
@@ -29,6 +30,42 @@ const cs = new catService()
 const CreateCategory = ({visible,close, updateList, editItem, setSelectedCat}) => {
     const {token, settings} = useSelector(state => state)
     const [Name, setName] = useState('')
+    const [NameKz, setNameKz] = useState('')
+    const [NameEn, setNameEn] = useState('')
+
+    const nameTabs = [
+        {
+            key: '1',
+            label: 'Русский язык',
+            children: <Input
+                maskType={String}
+                shadow={true}
+                value={Name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder={'Название категории'}/>,
+        },
+        {
+            key: '2',
+            label: 'Казахский язык',
+            children: <Input
+                maskType={String}
+                shadow={true}
+                value={NameKz}
+                onChange={(e) => setNameKz(e.target.value)}
+                placeholder={'Название категории на казахском'}/>,
+        },
+        {
+            key: '3',
+            label: 'Английский язык',
+            children: <Input
+                maskType={String}
+                shadow={true}
+                value={NameEn}
+                onChange={(e) => setNameEn(e.target.value)}
+                placeholder={'Название категории на английском языке'}/>,
+        },
+    ];
+
     const [ID, setID] = useState('')
     const [IIkoID, setIIkoID] = useState('')
     const [load, setLoad] = useState(false)
@@ -55,6 +92,9 @@ const CreateCategory = ({visible,close, updateList, editItem, setSelectedCat}) =
     const handleClose = () => {
         setSelectedCat(null)
         setName('')
+        setNameKz('')
+        setNameEn('')
+
         setIsHideInOrg(false)
         setOrgsList([])
         setIIkoID('')
@@ -81,9 +121,12 @@ const CreateCategory = ({visible,close, updateList, editItem, setSelectedCat}) =
 
     useEffect(() => {
         if(editItem && orgs?.length > 0 && visible) {
-            
+            console.log('edt', editItem)
             setHideInApp(editItem?.HideInApp)
             setName(editItem.Name)
+            setNameKz(editItem?.Name_kz)
+            setNameEn(editItem?.Name_en)
+
             setIIkoID(editItem.IIkoID)
             setIsHideInOrg(editItem.HiddenInOrganisations && editItem.HiddenInOrganisations != '/' ? true : false)
             if(editItem.HiddenInOrganisations && editItem.HiddenInOrganisations != '/') {
@@ -153,6 +196,8 @@ const CreateCategory = ({visible,close, updateList, editItem, setSelectedCat}) =
             IIkoID,
             CanOverwriteByIIko,
             Name,
+            Name_kz: NameKz,
+            Name_en: NameEn,
             HiddenInOrganisations: orgsList.length > 0 ? orgsList.filter(i => i?.ID !== 'All').map(item => `/${item.ID}`).join('/') + '/' : '',
             AllowedDeliveryTypes,
             HideInApp
@@ -188,6 +233,8 @@ const CreateCategory = ({visible,close, updateList, editItem, setSelectedCat}) =
             CanOverwriteByIIko,
             // ItemOrder,
             Name,
+            Name_kz: NameKz,
+            Name_en: NameEn,
             HiddenInOrganisations: orgsList?.length > 0 ? orgsList.filter(i => i?.ID !== 'All').map(item => `/${item.ID}`).join('/') + '/' : '',
             AllowedDeliveryTypes,
             HideInApp
@@ -378,12 +425,11 @@ const CreateCategory = ({visible,close, updateList, editItem, setSelectedCat}) =
                 }
                 
                 <div className="Modal__form_row">
-                    <Input
-                        maskType={String}
-                        shadow={true}
-                        value={Name}
-                        onChange={(e) => setName(e.target.value)} 
-                        placeholder={'Название категории'}/>
+                    {
+                        checkIsBao() ? (
+                            <Tabs defaultActiveKey="1" items={nameTabs} onChange={() => {}} style={{ width: '100%'}} />
+                        ) : nameTabs[0].children
+                    }
                 </div>
                 {
                     switchCrm(settings, 
