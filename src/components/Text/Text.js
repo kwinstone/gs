@@ -37,6 +37,8 @@ const Text = ({
             }
             <textarea 
                 rows={rows ?? undefined}
+                name={name}
+                value={value}
             onChange={onChange}
             onBlur={() => {
                 if(!value) {
@@ -48,9 +50,7 @@ const Text = ({
             onFocus={(e) => {
                 setValidFocus(true)
             }}
-            style={{height: height, ...style}} 
-            name={name} 
-            value={value}
+            style={{height: height, ...style}}
                 // defaultValue={value}
             id={id} 
             ref={inpRef}

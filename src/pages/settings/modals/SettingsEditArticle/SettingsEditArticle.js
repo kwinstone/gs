@@ -25,8 +25,8 @@ const SettingsEditArticle = ({
 
     const [text, setText] = useState('')
     const [name, setName] = useState('')
-    const [textKz, setTextEn] = useState('')
-    const [textEn, setTextKz] = useState('')
+    const [textKz, setTextKz] = useState('')
+    const [textEn, setTextEn] = useState('')
 
 
     useEffect(() => {
@@ -117,7 +117,6 @@ const SettingsEditArticle = ({
             label: 'Русский язык',
             children: <Text
                 value={text}
-                key={'123'}
                 onChange={e => setText(e.target.value)}
                 shadow
                 height={350}
@@ -127,7 +126,6 @@ const SettingsEditArticle = ({
             key: '2',
             label: 'Казахский язык',
             children: <Text
-                key={'1234'}
                 value={textKz}
                 onChange={e => setTextKz(e.target.value)}
                 shadow
@@ -138,7 +136,6 @@ const SettingsEditArticle = ({
             key: '3',
             label: 'Английский язык',
             children: <Text
-                key={'1235'}
                 value={textEn}
                 onChange={e => setTextEn(e.target.value)}
                 shadow
