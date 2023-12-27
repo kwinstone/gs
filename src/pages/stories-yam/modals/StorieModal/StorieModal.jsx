@@ -1,7 +1,7 @@
 import Button from '../../../../components/Button/Button';
 import getClassNames from '../../../../funcs/getClassNames';
 import styles from './StorieModal.module.scss';
-import {Modal, Row, Col } from 'antd';
+import { Modal, Row, Col } from 'antd';
 import { BsArrowLeft } from 'react-icons/bs';
 import useStorieEditor from './storieEditor';
 import { useEffect, useState } from 'react';
@@ -11,7 +11,7 @@ import AddText from './components/AddText/AddText';
 import TextPart from './components/TextPart/TextPart';
 import Draggable from 'react-free-draggable';
 import getBase64 from '../../../../funcs/getBase64';
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 function blobToBase64(blob) {
   return new Promise((resolve, _) => {
@@ -45,7 +45,7 @@ const StorieModal = ({
       editor.initEditor({
         media: null,
         textList: [],
-        grad: {value: 0, label: '0%'},
+        grad: { value: 0, label: '0%' },
       })
     }
   }, [data])
@@ -57,7 +57,7 @@ const StorieModal = ({
   }
 
   const onMediaUpload = (e) => {
-    if(e.target.files[0].size / (1024 * 1024) > 10){
+    if (e.target.files[0].size / (1024 * 1024) > 10) {
       toast.error('Максимальный размер файла 10МБ')
     } else {
       setFile(e.target.files[0])
@@ -65,25 +65,25 @@ const StorieModal = ({
   }
 
   useEffect(() => {
-    if(file) {
-      if(file?.type?.includes('image')) {
+    if (file) {
+      if (file?.type?.includes('image')) {
         getBase64(file).then(base64 => {
           editor.initEditor({
-            media: {type: file?.type, source: base64, file: base64},
+            media: { type: file?.type, source: base64, file: base64 },
             textList: [],
-            grad: {value: 0, label: '0%'},
+            grad: { value: 0, label: '0%' },
           })
         })
-        
+
       }
-      if(file?.type?.includes('video')) {
+      if (file?.type?.includes('video')) {
         file?.arrayBuffer().then(buffer => {
-          const blob = new Blob([new Uint8Array(buffer)], {type: file.type });
+          const blob = new Blob([new Uint8Array(buffer)], { type: file.type });
           blobToBase64(blob).then(res => {
             editor.initEditor({
-              media: {type: file?.type, source: res, file: res},
+              media: { type: file?.type, source: res, file: res },
               textList: [],
-              grad: {value: 0, label: '0%'},
+              grad: { value: 0, label: '0%' },
             })
           })
           // editor.initEditor({
@@ -94,19 +94,19 @@ const StorieModal = ({
         })
 
       }
-      if(file?.type?.includes('gif')) {
+      if (file?.type?.includes('gif')) {
         getBase64(file).then(base64 => {
           editor.initEditor({
-            media: {type: file?.type, source: base64, file: base64},
+            media: { type: file?.type, source: base64, file: base64 },
             textList: [],
-            grad: {value: 0, label: '0%'},
+            grad: { value: 0, label: '0%' },
           })
         })
       }
     }
   }, [file])
 
-  
+
   return (
     <Modal
       {...otherProps}
@@ -126,7 +126,7 @@ const StorieModal = ({
               <div className={styles.action}>
                 <Button
                   onClick={() => {
-                    if(data?.index >= 0 || data) {
+                    if (data?.index >= 0 || data) {
                       onSaveStorie({
                         ...data,
                         // media: ...data?.media,
@@ -144,7 +144,7 @@ const StorieModal = ({
                   }}
                   text={'Сохранить'}
                   styles={{ padding: '12px 35px', borderRadius: 20 }}
-                  // disabled={!file && !editor?.media?.source}
+                // disabled={!file && !editor?.media?.source}
                 />
               </div>
             </Col>
@@ -156,11 +156,11 @@ const StorieModal = ({
               <div className={styles.field}>
                 {
                   editor?.media ? (
-                    <div 
+                    <div
                       className={getClassNames([styles.img, 'drag-bound'])}>
-                      <div style={{backgroundColor: `rgba(0,0,0, .${editor?.grad?.value}`}} className={styles.mask}></div>
+                      <div style={{ backgroundColor: `rgba(0,0,0, .${editor?.grad?.value}` }} className={styles.mask}></div>
                       {
-                        editor?.textList?.map((i,ind) => (
+                        editor?.textList?.map((i, ind) => (
                           <Draggable
                             bounds={'.drag-bound'}
                             scale={1}
@@ -168,7 +168,7 @@ const StorieModal = ({
                               x: i?.coords[0],
                               y: i?.coords[1]
                             }}
-                            onMove={(_,v) => {
+                            onMove={(_, v) => {
                               editor?.editText({
                                 data: {
                                   coords: [v.x, v.y]
@@ -176,29 +176,29 @@ const StorieModal = ({
                                 itemIndex: ind
                               })
                             }}
-                            >
+                          >
                             <div
-                            style={{
-                              color: i?.color,
-                              fontSize: i?.fontSize,
-                              fontWeight: i?.fontWeight,
-                              left: 0,
-                              top: 0
-                            }}
-                            className={`${styles.layer} nekst-font`}
+                              style={{
+                                color: i?.color,
+                                fontSize: i?.fontSize,
+                                fontWeight: i?.fontWeight,
+                                left: 0,
+                                top: 0
+                              }}
+                              className={`${styles.layer} nekst-font`}
                             >{i?.value}</div>
                           </Draggable>
-                          
+
                         ))
                       }
                       {
                         editor?.media?.type?.includes('image') && (
-                            <img src={editor?.media?.source ?? data?.media?.source ?? data?.PictureThumbnail} alt="" />
+                          <img src={editor?.media?.source ?? data?.media?.source ?? data?.PictureThumbnail} alt="" />
                         )
                       }
                       {
                         editor?.media?.type?.includes('video') && (
-                          <video loop autoPlay src={editor?.media?.source ?? data?.media?.source ?? data?.PictureThumbnail}/>
+                          <video muted loop autoPlay src={editor?.media?.source ?? data?.media?.source ?? data?.PictureThumbnail} />
                         )
                       }
                     </div>
@@ -245,7 +245,7 @@ const StorieModal = ({
                               title: `Текст #${editor?.textList?.length + 1}`,
                               fontSize: 16,
                               color: '#fff',
-                              coords: [350 / 2,635 / 2]
+                              coords: [350 / 2, 635 / 2]
                             })
                           }}
                         />
@@ -253,7 +253,7 @@ const StorieModal = ({
                       <Col span={24}>
                         {
                           editor?.textList?.length > 0 && (
-                            <Row 
+                            <Row
                               style={{
                                 maxHeight: 500,
                                 overflowY: 'auto'

@@ -1,6 +1,6 @@
 import './OrderInfo.scss';
-import {  Modal } from 'antd';
-import {Row, Col} from 'antd';
+import { Modal } from 'antd';
+import { Row, Col } from 'antd';
 import { useState } from 'react';
 import DropCollapse from '../../../../components/DropCollapse/DropCollapse';
 import OrderPlate from '../../components/OrderPlate/OrderPlate';
@@ -11,6 +11,7 @@ import checkDelivery from '../../helpers/checkDelivery';
 import { useSelector } from 'react-redux';
 import anService from '../../../../services/anService';
 import checkDomain from '../../../../funcs/checkDomain';
+import Button from '../../../../components/Button/Button';
 
 const anl = new anService();
 
@@ -27,8 +28,8 @@ const pays = [
 
 
 
-const OrderInfo = ({visible, close, order, data, updateList}) => {
-    const {token} = useSelector(state => state)
+const OrderInfo = ({ visible, close, order, data, updateList }) => {
+    const { token } = useSelector(state => state)
     const [dataL, setDataL] = useState(null)
     const [orderPlates, setOrderPlates] = useState([])
     const [loadStatus, setLoadStatus] = useState(false)
@@ -37,7 +38,7 @@ const OrderInfo = ({visible, close, order, data, updateList}) => {
     const [statuses, setStatuses] = useState([])
 
     useEffect(() => {
-        if(data) {
+        if (data) {
             console.log(data)
             setDataL(data)
             setOrderPlates(data.Plates)
@@ -47,30 +48,30 @@ const OrderInfo = ({visible, close, order, data, updateList}) => {
 
     const closeHandle = () => {
         close();
-    }   
+    }
 
     // useEffect(() => {
     //     if(data?.OrganisationID && token) {
-            
+
     //     }
     // }, [data, token])
 
 
     useEffect(() => {
-        if(token) {
+        if (token) {
             anl.getStatuses(token).then(res => {
-                setStatuses(res?.Statuses?.map(i => ({ID: i.ID, value: i.Name})))
-             
+                setStatuses(res?.Statuses?.map(i => ({ ID: i.ID, value: i.Name })))
+
             })
         }
     }, [token])
 
     const editStatus = (status, index, id) => {
- 
+
         setLoadStatus(true)
-        anl.editOrderStatus(token, {OrderID: dataL?.ID, Status: id}).then(res => {
-      
-            if(res?.error === false) {
+        anl.editOrderStatus(token, { OrderID: dataL?.ID, Status: id }).then(res => {
+
+            if (res?.error === false) {
                 setDataL(state => {
                     return {
                         ...state,
@@ -84,8 +85,8 @@ const OrderInfo = ({visible, close, order, data, updateList}) => {
 
     const editPay = (value, index, id) => {
         setLoadPay(true)
-        anl.editOrderPaidStatus(token, {OrderID: dataL?.ID, Status: id}).then(res => {
-            if(res.error === false) {
+        anl.editOrderPaidStatus(token, { OrderID: dataL?.ID, Status: id }).then(res => {
+            if (res.error === false) {
                 setDataL(state => {
                     return {
                         ...state,
@@ -97,15 +98,20 @@ const OrderInfo = ({visible, close, order, data, updateList}) => {
         }).finally(_ => setLoadPay(false))
     }
 
+    const handlePort = async () => {
+        const response = await anl.portOrder(token, dataL?.ID)
+        console.log(response)
+    }
+
 
 
     return (
-        <Modal className='Modal OrderInfo' width={dataL?.Additions.length == 0 &&  dataL?.Cutlery.length == 0 ? 800 : 1200} open={visible} onCancel={closeHandle}>
-            
+        <Modal className='Modal OrderInfo' width={dataL?.Additions.length == 0 && dataL?.Cutlery.length == 0 ? 800 : 1200} open={visible} onCancel={closeHandle}>
+
             <h2 className="Modal__head">Заказ №{dataL?.ID}</h2>
             <div className="Modal__form">
                 <Row gutter={[30, 0]}>
-                    <Col span={dataL?.Additions.length == 0 &&  dataL?.Cutlery.length == 0 ? 12 : 8}>
+                    <Col span={dataL?.Additions.length == 0 && dataL?.Cutlery.length == 0 ? 12 : 8}>
                         <div className="OrderInfo__main panel">
                             <div className="OrderInfo__main_item">
                                 <div className="OrderInfo__main_item_name">Клиент</div>
@@ -163,7 +169,7 @@ const OrderInfo = ({visible, close, order, data, updateList}) => {
                                 <div className="OrderInfo__main_item_name">Подарок</div>
                                 <div className="OrderInfo__main_item_value">
                                     {
-                                        dataL?.GiftID != '' ? 
+                                        dataL?.GiftID != '' ?
                                             dataL?.GiftID.split('\\n').map(item => (
                                                 <div>{item}</div>
                                             )) : 'Не указано'
@@ -204,70 +210,73 @@ const OrderInfo = ({visible, close, order, data, updateList}) => {
                             </div>
                         </div>
                     </Col>
-                    <Col span={dataL?.Additions.length == 0 &&  dataL?.Cutlery.length == 0 ? 12 : 8}>
+                    <Col span={dataL?.Additions.length == 0 && dataL?.Cutlery.length == 0 ? 12 : 8}>
                         <div className="OrderInfo__md">
                             <Col span={24}>
-                                <Row gutter={[10,10]}>
+                                <Row gutter={[10, 10]}>
                                     <Col span={24}>
-                                        <Row gutter={[10,10]}>
-                                            <Col span={6} style={{paddingTop: 14}}>
-                                                <span style={{color: '#989898', width: '100px', fontWeight: '600'}}>Статус</span>
+                                        <Row gutter={[10, 10]}>
+                                            <Col span={6} style={{ paddingTop: 14 }}>
+                                                <span style={{ color: '#989898', width: '100px', fontWeight: '600' }}>Статус</span>
                                             </Col>
                                             <Col span={18}>
-                                                <DropCollapse 
-                                                load={loadStatus}
-                                                justify={'justifyLeft'}
-                                                selectItem={editStatus}
-                                                list={statuses} 
-                                                shadow={true} 
-                                                styles={{width: '100%'}} 
-                                                beforeIcon 
-                                                value={statuses.find(i => i.ID == dataL?.Status)?.value}/>
+                                                <DropCollapse
+                                                    load={loadStatus}
+                                                    justify={'justifyLeft'}
+                                                    selectItem={editStatus}
+                                                    list={statuses}
+                                                    shadow={true}
+                                                    styles={{ width: '100%' }}
+                                                    beforeIcon
+                                                    value={statuses.find(i => i.ID == dataL?.Status)?.value} />
                                             </Col>
                                         </Row>
-                                        
+
                                     </Col>
                                     <Col span={24}>
-                                        <Row gutter={[10,10]}>
-                                            <Col span={6} style={{paddingTop: 14}}>
-                                                <span style={{color: '#989898', width: '100px', fontWeight: '600'}}>Оплата</span>
+                                        <Row gutter={[10, 10]}>
+                                            <Col span={6} style={{ paddingTop: 14 }}>
+                                                <span style={{ color: '#989898', width: '100px', fontWeight: '600' }}>Оплата</span>
                                             </Col>
                                             <Col span={18}>
-                                                <DropCollapse 
-                                                load={loadPay}
-                                                justify={'justifyLeft'}
-                                                selectItem={editPay}
-                                                list={pays} 
-                                                shadow={true} 
-                                                styles={{width: '100%'}} 
-                                                beforeIcon 
-                                                value={dataL?.IsPaid == '1' ? 'Оплачено' : 'Не оплачено'}/>
+                                                <DropCollapse
+                                                    load={loadPay}
+                                                    justify={'justifyLeft'}
+                                                    selectItem={editPay}
+                                                    list={pays}
+                                                    shadow={true}
+                                                    styles={{ width: '100%' }}
+                                                    beforeIcon
+                                                    value={dataL?.IsPaid == '1' ? 'Оплачено' : 'Не оплачено'} />
                                             </Col>
                                         </Row>
                                     </Col>
                                     {
                                         orderPlates?.length > 0 ? (
                                             <Col span={24}>
-                                                <div style={{fontWeight: 600, color: '#989898', marginBottom: '15px'}}>Блюда заказа</div>
+                                                <div style={{ fontWeight: 600, color: '#989898', marginBottom: '15px' }}>Блюда заказа</div>
                                                 {
                                                     orderPlates?.length > 0 ? (
                                                         orderPlates.map((item, index) => (
                                                             <OrderPlate
                                                                 key={index}
                                                                 {...item}
-                                                                />
+                                                            />
                                                         ))
                                                     ) : null
                                                 }
                                             </Col>
                                         ) : null
                                     }
+                                    <Col span={24}>
+                                        <Button text='Портировать заказ' onClick={handlePort} />
+                                    </Col>
                                 </Row>
                             </Col>
-                            
-                            
-                            
-                            
+
+
+
+
                         </div>
                     </Col>
                     {
@@ -277,19 +286,19 @@ const OrderInfo = ({visible, close, order, data, updateList}) => {
                             <Col span={8}>
                                 {
                                     dataL?.Additions.length > 0 ? (
-                                        <OrderExList list={dataL?.Additions} name={'Дополнения к заказу'}/>
+                                        <OrderExList list={dataL?.Additions} name={'Дополнения к заказу'} />
                                     ) : null
                                 }
                                 {
                                     dataL?.Cutlery.length > 0 ? (
-                                        <OrderExList list={dataL?.Cutlery} name={'Столовые приборы'}/>
+                                        <OrderExList list={dataL?.Cutlery} name={'Столовые приборы'} />
                                     ) : null
                                 }
-                                
+
                             </Col>
                         )
                     }
-                    
+
                 </Row>
             </div>
         </Modal>

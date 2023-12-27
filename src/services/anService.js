@@ -1,5 +1,6 @@
 import endpoints from "./endpoints";
 import checkAuth from "./checkAuth";
+import { useParams } from 'react-router-dom';
 
 const headers = {
     'Content-type': 'application/json',
@@ -23,7 +24,26 @@ class anService {
 
             const result = await checkAuth(res)
             return result;
-        } catch(err) {
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    portOrder = async (token, OrderID) => {
+        try {
+            let res = await fetch(`${process.env.REACT_APP_HOST}/NewIntegrations/send_order.php?${new URLSearchParams({
+                OrderID
+            })}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    ...headers
+                },
+            })
+
+            const result = await checkAuth(res)
+            return result;
+        } catch (err) {
             console.log(err)
         }
     }
@@ -40,7 +60,7 @@ class anService {
             })
             const result = await checkAuth(res)
             return result;
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -57,7 +77,7 @@ class anService {
             })
             const result = await checkAuth(res)
             return result;
-        }catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -73,7 +93,7 @@ class anService {
 
             const result = await checkAuth(res)
             return result;
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -90,7 +110,7 @@ class anService {
             })
             const result = await checkAuth(res)
             return result;
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -106,7 +126,7 @@ class anService {
                 body: JSON.stringify(body)
             })
             return await checkAuth(res)
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -124,7 +144,7 @@ class anService {
 
             const result = await checkAuth(res);
             return result;
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -141,7 +161,7 @@ class anService {
             })
             const result = await checkAuth(res)
             return result;
-        }catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -158,10 +178,10 @@ class anService {
             })
             const result = await checkAuth(res)
             return result;
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
-    } 
+    }
 
     sendPushToAllUsers = async (token, body) => {
         try {
@@ -175,7 +195,7 @@ class anService {
             })
             const result = await checkAuth(res)
             return result;
-        }catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -189,11 +209,11 @@ class anService {
                     'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(body)
-            }) 
+            })
 
             const result = await checkAuth(res);
             return result;
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -212,7 +232,7 @@ class anService {
             })
             const result = await checkAuth(res);
             return result;
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -228,7 +248,7 @@ class anService {
             })
             const result = await checkAuth(res)
             return result;
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }

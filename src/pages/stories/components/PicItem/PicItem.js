@@ -22,7 +22,7 @@ const PicItem = ({
     const [videoThumb, setVideoThumb] = useState(null)
 
     useEffect(() => {
-        if(isVideo && PictureThumbnail) {
+        if (isVideo && PictureThumbnail) {
 
         }
     }, [isVideo, PictureThumbnail])
@@ -32,17 +32,17 @@ const PicItem = ({
             <div className="PicItem__img">
                 {
                     isVideo ? (
-                        <video src={PictureThumbnail}></video>
+                        <video src={PictureThumbnail} muted></video>
                     ) : (
                         <img src={PictureThumbnail} alt="" />
                     )
                 }
-                
+
             </div>
             <div className="PicItem__action">
-                <Button onClick={() => onDelete(ID, index)} styles={{width: '100%', padding: 10}} variant={'danger'} text={'Удалить'} before={<BsTrash/>} justify={'center'}/>
+                <Button onClick={() => onDelete(ID, index)} styles={{ width: '100%', padding: 10 }} variant={'danger'} text={'Удалить'} before={<BsTrash />} justify={'center'} />
             </div>
-        </div>  
+        </div>
     )
 }
 
