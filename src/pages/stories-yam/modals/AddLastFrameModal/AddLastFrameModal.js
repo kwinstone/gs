@@ -56,7 +56,7 @@ export const AddLastFrameModal = ({ isOpen, close, url, changeUrl }) => {
                             <PlUpload
                                 text={'Добавить финальный кадр'}
                                 shadow
-                                id={'prevImage'}
+                                id={'final_frame'}
                                 accept={'image/png, image/jpeg, image/jpg'}
                                 onChange={getNewAvatarUrl}
                                 style={{ marginBottom: 24, width: '100%', height: 280}}
