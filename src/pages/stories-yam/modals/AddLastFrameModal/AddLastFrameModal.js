@@ -32,7 +32,11 @@ export const AddLastFrameModal = ({ isOpen, close, url, changeUrl }) => {
     };
 
     const onFullSave = () => {
-        changeUrl(lastFrameURL)
+        if (lastFrameURL) {
+            changeUrl(lastFrameURL)
+        } else {
+            changeUrl('')
+        }
         close()
     }
 
@@ -98,7 +102,6 @@ export const AddLastFrameModal = ({ isOpen, close, url, changeUrl }) => {
                     <Button
                         styles={{width: '100%'}}
                         text={'Сохранить всю картинку'}
-                        disabled={!lastFrameURL}
                         onClick={onFullSave}
                     />
                 </Col>
