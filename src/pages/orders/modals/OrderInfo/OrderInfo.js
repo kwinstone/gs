@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import anService from '../../../../services/anService';
 import checkDomain from '../../../../funcs/checkDomain';
 import Button from '../../../../components/Button/Button';
+import { toast } from 'react-toastify';
 
 const anl = new anService();
 
@@ -79,6 +80,8 @@ const OrderInfo = ({ visible, close, order, data, updateList }) => {
                     }
                 })
                 updateList()
+            } else {
+                toast.error('Возникла ошибка при изменении статуса')
             }
         }).finally(_ => setLoadStatus(false))
     }

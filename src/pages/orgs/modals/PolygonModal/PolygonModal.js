@@ -1,10 +1,10 @@
 import './PolygonModal.scss';
-import {  message, Modal } from 'antd';
+import { message, Modal } from 'antd';
 import Input from '../../../../components/Input/Input';
-import {Row, Col} from 'antd';
+import { Row, Col } from 'antd';
 import Pl from '../../../../components/Pl/Pl';
 import Button from '../../../../components/Button/Button';
-import {BsTrash} from 'react-icons/bs';
+import { BsTrash } from 'react-icons/bs';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import orgService from '../../../../services/orgService';
@@ -19,9 +19,9 @@ import switchCrm from '../../../../funcs/switchCrm';
 const os = new orgService()
 
 
-const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
+const PolygonModal = ({ visible, close, data, orgId, setPolList }) => {
 
-    const {token, settings} = useSelector(state => state)
+    const { token, settings } = useSelector(state => state)
     const [selected, setSelected] = useState(null);
     const [Name, setName] = useState('')
     const [MinPrice, setMinPrice] = useState('')
@@ -34,13 +34,14 @@ const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
     const [editPrice, setEditPrice] = useState(null)
     const [Color, setColor] = useState('')
     const [IsOnlyForOnlinePayment, setIsOnlyForOnlinePayment] = useState('0')
+    const [isLoading, setIsLoading] = useState(false)
     // const [DeliveryItemID, setDeliveryItemID] = useState('')
     // const [DeliveryItemCount, setDeliveryItemCount] = useState('');
 
     const [textCoords, setTextCoords] = useState()
 
     useEffect(() => {
-        if(data) {
+        if (data) {
             // setDeliveryItemID(data?.DeliveryItemID)
             // setDeliveryItemCount(data?.DeliveryItemCount)
             setMinPrice(data?.MinPrice)
@@ -59,7 +60,7 @@ const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
             setColor('#000000')
         }
     }, [data, visible])
-    
+
     const closePriceModal = () => {
         setEditPrice(null)
         setPolyPriceModal(false)
@@ -67,7 +68,7 @@ const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
     const openPriceModal = () => {
         setPolyPriceModal(true)
     }
-    const openEditPrice = ({...item}) => {
+    const openEditPrice = ({ ...item }) => {
         setEditPrice(item)
         openPriceModal()
     }
@@ -85,15 +86,15 @@ const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
     }
 
     useEffect(() => {
-        if(textCoords) {
-           
+        if (textCoords) {
+
             const arr = textCoords.split(' ');
             const r = arr.filter(item => {
                 const ff = item.split(',')
-                if(ff.length == 2) {
+                if (ff.length == 2) {
                     return item
                 }
-                
+
             }).map(g => {
                 const tt = g.split(',')
                 return {
@@ -112,17 +113,18 @@ const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
     }
 
     useEffect(() => {
-        if(selected?.length > 0) {
+        if (selected?.length > 0) {
             setTextCoords(selected.map(item => {
                 return `${item.lng()},${item.lat()}`
             }).join(' '))
         }
     }, [selected])
 
-    const onSave = () => {   
-        console.log('EDIT') 
-        if(!data) {
-            if(textCoords) {
+    const onSave = () => {
+        console.log('EDIT')
+        if (!data) {
+            if (textCoords) {
+                setIsLoading(true)
                 const data = {
                     OrganisationID: orgId,
                     Disabled: '0',
@@ -141,7 +143,7 @@ const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
                     // DeliveryItemCount,
                     // DeliveryItemID
                 }
-            
+
                 os.addPol(token, data).then(res => {
                     console.log(res)
                     setPolList(res.map(item => {
@@ -159,6 +161,7 @@ const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
                     // setPolList(res)
                 }).finally(_ => {
                     closeHandle()
+                    setIsLoading(false)
                 })
             } else {
                 // os.addPol(token, {
@@ -188,9 +191,10 @@ const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
                 // })
                 message.error('Полигон не выбран')
             }
-            
+
         } else {
-            if(textCoords) {
+            if (textCoords) {
+                setIsLoading(true)
                 os.editPol(token, {
                     PolygonID: data.PolygonID,
                     OrganisationID: orgId,
@@ -225,9 +229,11 @@ const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
                     }))
                 }).finally(_ => {
                     closeHandle()
+                    setIsLoading(false)
                 })
-                
+
             } else {
+                setIsLoading(true)
                 os.editPol(token, {
                     PolygonID: data.PolygonID,
                     OrganisationID: orgId,
@@ -260,23 +266,24 @@ const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
                     }))
                 }).finally(_ => {
                     closeHandle()
+                    setIsLoading(false)
                 })
             }
-            
+
         }
-        
-    }  
-    
+
+    }
+
     const onDelete = () => {
         console.log('DELETE')
         setDelLoad(true)
-        os.deletePol(token, {PolygonID: data.PolygonID}).then(res => {
-        
+        os.deletePol(token, { PolygonID: data.PolygonID }).then(res => {
+
             setPolList(res.map(item => {
                 return {
                     ...item,
                     Coordinates: item.Coordinats.split(' ').map(item => {
-                        
+
                         return {
                             lat: Number(item.slice(0, item.indexOf(','))),
                             lng: Number(item.slice(item.indexOf(',') + 1, item.length))
@@ -291,36 +298,36 @@ const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
         })
     }
 
-    
+
 
     return (
         <Modal width={1220} className="Modal" open={visible} onCancel={closeHandle}>
-            <PolyPrice 
-                data={editPrice} 
-                visible={polyPriceModal} 
-                close={closePriceModal} 
+            <PolyPrice
+                data={editPrice}
+                visible={polyPriceModal}
+                close={closePriceModal}
                 update={setDelivery}
-                />
+            />
             <div className="Modal__head">Выбрать полигон</div>
             <form className="Modal__form">
                 <Row gutter={[25, 0]}>
                     <Col span={14}>
                         <Row gutter={[0, 20]}>
                             <Col span={24}>
-                                <div className="Modal__form_map" style={{height: 290}}>  
+                                <div className="Modal__form_map" style={{ height: 290 }}>
                                     <MapPolygon
                                         color={Color}
                                         id={'polygon-modal'}
-                                        setSelected={setSelected} 
-                                        polygonCoords={coords} 
+                                        setSelected={setSelected}
+                                        polygonCoords={coords}
                                         // center={{lat: 55.7522200,lng: 37.6155600}}
-                                        center={checkDomain({lat: 55.7522200,lng: 37.6155600}, {lat: 43.23365, lng: 76.89623})}
-                                        />
+                                        center={checkDomain({ lat: 55.7522200, lng: 37.6155600 }, { lat: 43.23365, lng: 76.89623 })}
+                                    />
                                 </div>
                             </Col>
                             <Col span={24}>
                                 <div className="def-label">Выберите цвет полигона</div>
-                                <SelectColor color={Color} setColor={setColor}/>
+                                <SelectColor color={Color} setColor={setColor} />
                             </Col>
                             <Col span={24}>
                                 <Checkbox
@@ -329,7 +336,7 @@ const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
                                     text={'Только для онлайн оплаты'}
                                     checked={IsOnlyForOnlinePayment == '1'}
                                     onChange={e => e.target.checked ? setIsOnlyForOnlinePayment('1') : setIsOnlyForOnlinePayment('0')}
-                                    />
+                                />
                             </Col>
                             <Col span={24}>
                                 <Input
@@ -338,24 +345,24 @@ const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
                                     placeholder={'Название'}
                                     value={Name}
                                     onChange={e => setName(e.target.value)}
-                                    />
+                                />
                             </Col>
                             <Col span={24}>
-                                <Input 
+                                <Input
                                     scale={5}
                                     maskType={Number}
                                     value={MinPrice}
                                     onChange={(e) => setMinPrice(e.target.value)}
-                                    shadow 
-                                    placeholder={'Минимальная сумма заказа'}/>
+                                    shadow
+                                    placeholder={'Минимальная сумма заказа'} />
                             </Col>
                             <Col span={24}>
                                 <Input
                                     maskType={Number}
                                     value={DeliveryTime}
-                                    onChange={(e) => setDeliveryTime(e.target.value)} 
-                                    shadow 
-                                    placeholder={'Время доставки'}/>
+                                    onChange={(e) => setDeliveryTime(e.target.value)}
+                                    shadow
+                                    placeholder={'Время доставки'} />
                             </Col>
                             {/* <Col span={24}>
                                 {
@@ -402,32 +409,33 @@ const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
                             </Col> */}
                             <Col span={24}>
                                 <Button
-                                    styles={{width: '100%'}}
+                                    styles={{ width: '100%' }}
                                     text={'Сохранить'}
-                                    before={<SaveIcon color={'#fff'} size={20}/>}
+                                    before={<SaveIcon color={'#fff'} size={20} />}
                                     load={saveLoad}
+                                    disabled={isLoading}
                                     type={'button'}
                                     onClick={onSave}
-                                    />
+                                />
                                 {
                                     data ? (
                                         <Button
-                                        styles={{width: '100%', marginTop: 10}}
-                                        text={'Удалить'}
-                                        before={<BsTrash size={20}/>}
-                                        variant={'danger'}
-                                        load={delLoad}
-                                        type={'button'}
-                                        onClick={onDelete}
-                                        /> 
+                                            styles={{ width: '100%', marginTop: 10 }}
+                                            text={'Удалить'}
+                                            before={<BsTrash size={20} />}
+                                            variant={'danger'}
+                                            load={delLoad}
+                                            type={'button'}
+                                            onClick={onDelete}
+                                        />
                                     ) : null
                                 }
                             </Col>
                         </Row>
-                       
+
                     </Col>
                     <Col span={10}>
-                        <Row gutter={[0,20]}>
+                        <Row gutter={[0, 20]}>
                             <Col span={24}>
                                 {/* <Input
                                     shadow={true}
@@ -440,21 +448,21 @@ const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
                                     placeholder={'Координаты'}
                                     shadow
                                     onChange={(e) => setTextCoords(e.target.value)}
-                                    />
+                                />
                             </Col>
-                            <Col span={24} className="def-label" style={{margin: 0}}>
+                            <Col span={24} className="def-label" style={{ margin: 0 }}>
                                 Таблица цен доставки
                             </Col>
                             {
                                 Delivery && Delivery.length > 0 ? (
                                     <Col span={24}>
                                         <div className="SelectPoly__list">
-                                            <Row gutter={[10,10]}>
+                                            <Row gutter={[10, 10]}>
                                                 {
                                                     Delivery.map((item, index) => (
                                                         <Col span={24}>
                                                             <div className="SelectPoly__item" key={index}>
-                                                                <div className="SelectPoly__item_main" onClick={() => openEditPrice({...item})}>
+                                                                <div className="SelectPoly__item_main" onClick={() => openEditPrice({ ...item })}>
                                                                     <div className="SelectPoly__item_p">
                                                                         <div className="SelectPoly__item_p_name">Сумма заказа от</div>
                                                                         <div className="SelectPoly__item_p_value">{item.MinPrice}</div>
@@ -464,35 +472,35 @@ const PolygonModal = ({visible, close, data, orgId,setPolList}) => {
                                                                         <div className="SelectPoly__item_p_value">{item.DeliveryPrice}</div>
                                                                     </div>
                                                                 </div>
-                                                                
+
                                                                 <div className="SelectPoly__item_action">
                                                                     <Button
                                                                         type={'button'}
-                                                                        styles={{width: '100%'}} 
-                                                                        variant={'danger'} 
-                                                                        text={'Удалить цену'} 
-                                                                        before={<BsTrash/>}
+                                                                        styles={{ width: '100%' }}
+                                                                        variant={'danger'}
+                                                                        text={'Удалить цену'}
+                                                                        before={<BsTrash />}
                                                                         onClick={() => removeDelItem(index)}
-                                                                        />
+                                                                    />
                                                                 </div>
                                                             </div>
                                                         </Col>
                                                     ))
                                                 }
                                             </Row>
-                                            
-                                        
+
+
                                         </div>
                                     </Col>
                                 ) : null
                             }
-                            
+
                             <Col span={24}>
-                                <Pl 
+                                <Pl
                                     shadow={true}
                                     onClick={openPriceModal}
-                                    style={{backgroundColor: '#fff', width: '100%'}} 
-                                    text={'Добавить цену'}/>
+                                    style={{ backgroundColor: '#fff', width: '100%' }}
+                                    text={'Добавить цену'} />
                             </Col>
                         </Row>
                     </Col>
