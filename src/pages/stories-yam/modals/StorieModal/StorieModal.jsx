@@ -79,6 +79,7 @@ const StorieModal = ({
       if (file?.type?.includes('video')) {
         file?.arrayBuffer().then(buffer => {
           const blob = new Blob([new Uint8Array(buffer)], { type: file.type });
+
           blobToBase64(blob).then(res => {
             editor.initEditor({
               media: { type: file?.type, source: res, file: res },
@@ -207,7 +208,7 @@ const StorieModal = ({
                       <input
                         id='upload-storie'
                         type="file"
-                        accept='.jpeg, .jpg, .png, .mp4'
+                        accept='.jpeg, .jpg, .png, .mp4, .mov'
                         onChange={onMediaUpload}
                         value={''}
                       />

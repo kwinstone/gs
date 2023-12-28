@@ -32,8 +32,8 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode, Navigation } from 'swiper/modules';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { Title } from "chart.js";
-import {AddLastFrameModal} from "../AddLastFrameModal/AddLastFrameModal";
-import {CropPreview} from "../CropPreview/CropPreview";
+import { AddLastFrameModal } from "../AddLastFrameModal/AddLastFrameModal";
+import { CropPreview } from "../CropPreview/CropPreview";
 
 
 const cs = new catService();
@@ -119,6 +119,7 @@ const AddStorie = ({
         setNamePreview('')
         setImages([])
         setHideInOrg(false)
+        setLastFrameUrl('')
 
         //adjacent data
         setOrgsList([])
@@ -368,6 +369,8 @@ const AddStorie = ({
             body.append('ButtonTypeAction', ButtonTypeAction.toString())
             body.append('CategoryList', CategoryList?.join(','))
             body.append('Disabled', Disabled)
+            body.append('LastFrame', lastFrameUrl)
+
             if (orgsList.length > 0) {
                 body.append('HiddenInOrganisations', orgsList.map(item => `/${item.ID}`).join('/') + '/')
             } else {

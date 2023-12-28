@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.65e53657.css",
+    "main.js": "/static/js/main.d8247adc.js",
+    "static/media/elon.png": "/static/media/elon.b01666f46c8a62b7eb70.png",
+    "static/media/elon-smile.png": "/static/media/elon-smile.5c05d1c6d999fecd1401.png",
+    "static/media/org.png": "/static/media/org.19a02170706233821d60.png",
+    "static/media/Nekst-Bold.otf": "/static/media/Nekst-Bold.29cb664a96e7ea003885.otf",
+    "static/media/Nekst-Light.otf": "/static/media/Nekst-Light.3c9caa7443a1054ce9f9.otf",
+    "static/media/Nekst-Regular.otf": "/static/media/Nekst-Regular.5189b13826111ed19997.otf",
+    "static/media/logo-bao.png": "/static/media/logo-bao.bd168e544e70e7468161.png",
+    "static/media/org-brand.png": "/static/media/org-brand.a38466fbe041cd3a7de4.png",
+    "static/media/logo.svg": "/static/media/logo.7c18c22fdbf27da77e8da21d7551f534.svg",
+    "index.html": "/index.html",
+    "main.65e53657.css.map": "/static/css/main.65e53657.css.map",
+    "main.d8247adc.js.map": "/static/js/main.d8247adc.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.65e53657.css",
+    "static/js/main.d8247adc.js"
+  ]
+}
