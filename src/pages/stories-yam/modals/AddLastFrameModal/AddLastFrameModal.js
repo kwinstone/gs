@@ -1,8 +1,8 @@
-import {Col, Modal, Row} from "antd";
+import { Col, Modal, Row } from "antd";
 import InputSelect from "../../../../components/InputSelect/InputSelect";
 import Button from "../../../../components/Button/Button";
-import {useEffect, useState} from "react";
-import {Cropper} from "react-cropper";
+import { useEffect, useState } from "react";
+import { Cropper } from "react-cropper";
 import PlUpload from "../../../../components/PlUpload/PlUpload";
 import getBase64 from "../../../../funcs/getBase64";
 
@@ -22,7 +22,7 @@ export const AddLastFrameModal = ({ isOpen, close, url, changeUrl }) => {
             const file = await fetch(cropper.getCroppedCanvas().toDataURL())
                 .then((res) => res.blob())
                 .then((blob) => {
-                    return new File([blob], "newAvatar.png", { type: "image/png" });
+                    return new File([blob], "last_frame.png", { type: "image/png" });
                 });
             if (file) {
                 getBase64(file).then(res => changeUrl(res)).then(() => close())
@@ -38,7 +38,7 @@ export const AddLastFrameModal = ({ isOpen, close, url, changeUrl }) => {
             changeUrl('')
         }
         close()
-    }
+    };
 
     useEffect(() => {
         setLastFrameURL(isOpen ? url : undefined)
@@ -46,9 +46,9 @@ export const AddLastFrameModal = ({ isOpen, close, url, changeUrl }) => {
 
     return (
         <Modal open={isOpen} onCancel={close} footer={<></>}>
-            <Row gutter={[20,20]}>
+            <Row gutter={[20, 20]}>
                 <Col span={24}>
-                    <div style={{margin: 0}} className='Modal__head'>Добавить финальную заставку</div>
+                    <div style={{ margin: 0 }} className='Modal__head'>Добавить финальную заставку</div>
                 </Col>
                 <Col span={24}>
                     {
@@ -59,7 +59,7 @@ export const AddLastFrameModal = ({ isOpen, close, url, changeUrl }) => {
                                 id={'final_frame'}
                                 accept={'image/png, image/jpeg, image/jpg'}
                                 onChange={getNewAvatarUrl}
-                                style={{ marginBottom: 24, width: '100%', height: 280}}
+                                style={{ marginBottom: 24, width: '100%', height: 280 }}
                             />
                         )
                     }
@@ -79,20 +79,20 @@ export const AddLastFrameModal = ({ isOpen, close, url, changeUrl }) => {
                                     }}
                                 />
                                 <Button
-                                    styles={{width: '100%', marginTop: 24}}
+                                    styles={{ width: '100%', marginTop: 24 }}
                                     text={'Сохранить обрезанную версию'}
                                     onClick={getCropData}
-                                    // onClick={saveHandle}
+                                // onClick={saveHandle}
                                 />
                                 <Button
-                                    styles={{width: '100%', marginTop: 24}}
+                                    styles={{ width: '100%', marginTop: 24 }}
                                     text={'Убрать картинку'}
                                     onClick={() => {
                                         setLastFrameURL()
                                         setCropper()
                                     }}
                                     variant={'danger'}
-                                    // onClick={saveHandle}
+                                // onClick={saveHandle}
                                 />
                             </>
                         )
@@ -100,7 +100,7 @@ export const AddLastFrameModal = ({ isOpen, close, url, changeUrl }) => {
                 </Col>
                 <Col span={24}>
                     <Button
-                        styles={{width: '100%'}}
+                        styles={{ width: '100%' }}
                         text={'Сохранить всю картинку'}
                         onClick={onFullSave}
                     />

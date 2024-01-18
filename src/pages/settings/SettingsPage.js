@@ -13,6 +13,8 @@ import Input from '../../components/Input/Input';
 import DropCollapse from '../../components/DropCollapse/DropCollapse';
 import SaveIcon from '../../icons/SaveIcon/SaveIcon';
 import checkDomain from '../../funcs/checkDomain';
+import {BannersModal} from "./components/BannersModal/BannersModal";
+import {checkIsTigrus} from "../../utils/checkIsTigrus";
 
 const ss = new setService();
 
@@ -126,6 +128,7 @@ const SettingsPage = () => {
             return 'Процент бонусов'
         }
     }
+    const [bannerOpen, setBannerOpen] = useState(false)
 
 
     return (
@@ -163,6 +166,14 @@ const SettingsPage = () => {
                                     setData={setContacts}
                                     />
                             </Row>
+                            {
+                                checkIsTigrus() && (
+                                    <Row className="row-custom">
+                                        <BannersModal open={bannerOpen} onClose={() => setBannerOpen(false)} />
+                                        <Button text={'Редактировать баннеры'} styles={{width: '100%'}} onClick={() => setBannerOpen(true)} />
+                                    </Row>
+                                )
+                            }
                             <Row className="row-custom" style={{marginTop: 30, flex: '1 0 auto', alignItems: 'flex-end'}}>
                                 <Button
                                     load={load}

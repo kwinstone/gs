@@ -2,6 +2,11 @@ export const BASE_DOMAIN = `${process.env.REACT_APP_HOST}/NewAdminPanel`;
 
 
 const endpoints = {
+    // banners
+    getBanners: `${BASE_DOMAIN}/settings/getBanners`,
+    addBanners: `${BASE_DOMAIN}/settings/addBanner`,
+    removeBanners: `${BASE_DOMAIN}/settings/deleteBanner`,
+
     //порядок
 
     // авторизация
