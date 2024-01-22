@@ -155,7 +155,7 @@ export const BannersModal = (props) => {
                 </div>
                 {/*<input type={'file'} onChange={handleUpload} />*/}
             </div>
-            <Button danger type={'primary'} style={{ marginLeft: 'auto', display: 'block'}}>
+            <Button onClick={props.onClose} danger type={'primary'} style={{ marginLeft: 'auto', display: 'block'}}>
                 Закрыть
             </Button>
         </Modal>
