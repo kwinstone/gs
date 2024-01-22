@@ -134,7 +134,7 @@ export const BannersModal = (props) => {
                                 >
                                     x
                                 </div>
-                                <img src={`${process.env.REACT_APP_HOST}${c.image}`} width={c.width}/>
+                                <img src={`${c.image}`} width={c.width}/>
                             </div>
                         </div>
                     ))
