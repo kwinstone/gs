@@ -33,7 +33,7 @@ import checkNull from '../../../funcs/checkNull';
 import PaymentEdit from './modals/PaymentEdit/PaymentEdit';
 import checkDomain from '../../../funcs/checkDomain';
 import { checkIsBao } from "../../../utils/checkIsBao";
-import {checkIsTigrus} from "../../../utils/checkIsTigrus";
+import { checkIsTigrus } from "../../../utils/checkIsTigrus";
 
 
 const os = new orgService();
@@ -517,7 +517,9 @@ const OrgsCreatePage = () => {
         checkNumValue(data, 'TimeStepReservation', TimeStepReservation)
         data.append('HavePreorder', HavePreorder)
         data.append('Address', Address)
-        data.append('tag', tag)
+        if (checkIsTigrus()) {
+            data.append('tag', tag)
+        }
         data.append('Phone', Phone)
         data.append('Email', Email)
         checkNumValue(data, 'MinPriceForLocalSale', MinPriceForLocalSale);
