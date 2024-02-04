@@ -47,6 +47,7 @@ const AddClientPage = () => {
 
     return (
         <div style={{ paddingTop: '110px', paddingLeft: '20px', width: '100%'}}>
+            <Button text={'Вернуться'} onClick={() => window.history.back()} />
             <div style={{
                 background: 'white',
                 padding: '24px 16px',
