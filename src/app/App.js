@@ -31,6 +31,7 @@ import TrashPage from "../pages/trash/TrashPage";
 import checkDomain from "../funcs/checkDomain";
 import CheckRole from "../hoc/CheckRole";
 import StoriesPageYm from "../pages/stories-yam/StoriesPage";
+import AddClientPage from "../pages/clients/AddClient";
 
 
 const App = () => {
@@ -93,6 +94,7 @@ const App = () => {
 
                 <Route path="/revs" element={<CheckAuth><RevsPage/></CheckAuth>}/>
                 <Route path="/clients" element={<CheckAuth><ClientsPage/></CheckAuth>}/>
+                <Route path="/clients/create" element={<CheckAuth><AddClientPage /></CheckAuth>}/>
                 <Route path="/orders" element={<CheckAuth><OrdersPage/></CheckAuth>}/>
                 <Route path="*" element={<CheckAuth><Notfound/></CheckAuth>}/>
                 <Route path="/auth" element={<AuthPage/>}/>

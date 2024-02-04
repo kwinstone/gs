@@ -16,11 +16,14 @@ import ClientsFilter from './components/ClientsFilter/ClientsFilter';
 import {HiChevronDown} from 'react-icons/hi';
 import checkDomain from '../../funcs/checkDomain';
 import { message } from 'antd';
+import {useNavigate} from "react-router-dom";
 
 const ans = new anService();
 
 
 const ClientsPage = () => {
+    const navigate = useNavigate();
+
     const {token, sidebarOpen} = useSelector(state => state)
     const [selects, setSelects] = useState([]);
     const [selectedUser, setSelectedUser] = useState({});
@@ -332,6 +335,11 @@ const ClientsPage = () => {
                             setValue={setSearch}
                             selectAll={selectAll}
                             />
+                        <div style={{ marginBottom: '20px'}}>
+                            <Button text={'Добавить клиента'} onClick={() => {
+                                navigate('/clients/create')
+                            }} />
+                        </div>
                         <div className={`ClientsPage__body_filter ${filterOpen ? 'active' : ''}`}>
                             <div className={'ClientsPage__body_filter_in'}>
                                 <div onClick={() => setFilterOpen(s => !s)} className={'ClientsPage__body_filter_label'}>
