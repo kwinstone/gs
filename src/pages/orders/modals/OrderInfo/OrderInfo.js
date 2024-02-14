@@ -1,5 +1,5 @@
 import './OrderInfo.scss';
-import { Modal } from 'antd';
+import {Modal, notification} from 'antd';
 import { Row, Col } from 'antd';
 import { useState } from 'react';
 import DropCollapse from '../../../../components/DropCollapse/DropCollapse';
@@ -13,6 +13,8 @@ import anService from '../../../../services/anService';
 import checkDomain from '../../../../funcs/checkDomain';
 import Button from '../../../../components/Button/Button';
 import { toast } from 'react-toastify';
+import endpoints, {BASE_DOMAIN} from "../../../../services/endpoints";
+import checkAuth from "../../../../services/checkAuth";
 
 const anl = new anService();
 
@@ -104,6 +106,34 @@ const OrderInfo = ({ visible, close, order, data, updateList }) => {
     const handlePort = async () => {
         const response = await anl.portOrder(token, dataL?.ID)
         console.log(response)
+    }
+
+    const handleDeleteOrder = async () => {
+        try {
+            let res = await fetch(`${BASE_DOMAIN}/analytics/delOrder`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({
+                    ID: dataL?.ID
+                })
+            })
+
+            const result = await checkAuth(res)
+            console.log(result)
+            if (!result.error) {
+                notification.success({ message: 'Заказ успешно удален' })
+                closeHandle()
+                updateList()
+            } else {
+                notification.error({ message: 'Ошибка при удалении заказа' })
+            }
+        } catch (err) {
+            notification.error({ message: 'Ошибка при удалении заказа' })
+        }
     }
 
 
@@ -273,6 +303,10 @@ const OrderInfo = ({ visible, close, order, data, updateList }) => {
                                     }
                                     <Col span={24}>
                                         <Button text='Портировать заказ' onClick={handlePort} />
+                                        <div style={{ marginTop: '12px' }}>
+                                            <Button text='Удалить заказ' variant={'danger'} onClick={handleDeleteOrder} />
+                                        </div>
+
                                     </Col>
                                 </Row>
                             </Col>
