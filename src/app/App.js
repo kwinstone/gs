@@ -32,6 +32,7 @@ import checkDomain from "../funcs/checkDomain";
 import CheckRole from "../hoc/CheckRole";
 import StoriesPageYm from "../pages/stories-yam/StoriesPage";
 import AddClientPage from "../pages/clients/AddClient";
+import {RootPage as SitesModule} from "../modules/Sites/containers/RootPage";
 
 
 const App = () => {
@@ -69,6 +70,9 @@ const App = () => {
                 <Route path="/organizations" element={<CheckAuth><CheckRole><OrgsPage/></CheckRole></CheckAuth>}/>
                 <Route path="/reservations" element={<CheckAuth><CheckRole><ReservPage/></CheckRole></CheckAuth>}/>
                 <Route path="/catalog" element={<CheckAuth><CheckRole><CatalogPage/></CheckRole></CheckAuth>}/>
+
+                <Route path="/site/*" element={<SitesModule />} />
+
                 
                 <Route path="/statistic" element={<CheckAuth><CheckRole><StatPage/></CheckRole></CheckAuth>}/>
                 <Route path="/basket" element={<CheckAuth><CheckRole><BasketPage/></CheckRole></CheckAuth>}/>

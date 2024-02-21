@@ -3,6 +3,7 @@ import Button from "../../components/Button/Button";
 import {useState} from "react";
 import {Checkbox, notification} from "antd";
 import {useSelector} from "react-redux";
+import {IMaskInput} from "react-imask";
 
 
 const AddClientPage = () => {
@@ -15,9 +16,12 @@ const AddClientPage = () => {
     const onSubmit = async () => {
         let birthdayDate = new Date(new Date().getFullYear() - 18, new Date().getMonth(), new Date().getDate());
         const d = new FormData()
+        if (phone.length !== 16) {
+            return alert('Неверный формат номера телефона')
+        }
         d.append('Name', fio)
         d.append('Email', email)
-        d.append('Phone', phone)
+        d.append('Phone', `+${phone.replace(/\D/g, '')}`)
         d.append('Bulkprices', isBulk)
         d.append('Birthday', birthdayDate.toISOString().split('T')[0]);
 
@@ -67,7 +71,20 @@ const AddClientPage = () => {
                 }}>
                     <Input placeholder={'ФИО'} maskType={String} value={fio} onChange={e => setFio(e.target.value)} />
                     <Input placeholder={'Эл. почта'} maskType={String} value={email} onChange={e => setEmail(e.target.value)} />
-                    <Input placeholder={'Номер телефона'} maskType={String} value={phone} onChange={e => setPhone(e.target.value)} />
+                    <IMaskInput
+                        mask={'+{7}(000)000-00-00'}
+                        placeholder={'+7(000)000-00-00'}
+                        style={{
+                            height: '50px',
+                            borderRadius: 8,
+                            paddingLeft: 12,
+                            color: 'black',
+                            borderColor: '#B0C2FF',
+                            fontWeight: 600
+                        }}
+                        value={phone} onChange={e => setPhone(e.target.value)}
+                    />
+                    {/*<Input placeholder={'Номер телефона'} maskType={String} value={phone} onChange={e => setPhone(e.target.value)} />*/}
                     {/*<Input placeholder={'Дата рождения'} />*/}
                     {/*<Checkbox text={'Оптовый заказчик'} checked={true} value={true} />*/}
                     <Checkbox checked={isBulk} onChange={(e) => setIsBulk(e.target.checked)}>
