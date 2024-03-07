@@ -333,6 +333,38 @@ const ClientsFilter = ({
                                     </Col>
                                 </Row>
                             </Col>
+                            <Col span={24}>
+                                <Row gutter={[10,10]}>
+                                    <Col span={12} style={{ position: 'relative'}}>
+                                        <InputSelect
+                                            list={[
+                                                {
+                                                    ID: '1',
+                                                    value: 'M',
+                                                    label: 'Мужской'
+                                                },
+                                                {
+                                                    ID: '2',
+                                                    value: 'F',
+                                                    label: 'Женский'
+                                                }
+                                            ]}
+                                            placeholder={'Пол'}
+                                            value={Gender}
+                                            onSelect={(e) => {
+                                                setGender(e.value)
+                                            }}
+                                        />
+                                        <div style={{
+                                            position: 'absolute',
+                                            top: 16,
+                                            left: 26,
+                                            fontWeight: 600,
+                                            display: Gender ? 'none' : 'block'
+                                        }}>Пол</div>
+                                    </Col>
+                                </Row>
+                            </Col>
                         </Row>
                     </Col>
                     <Col span={12}>

@@ -150,6 +150,12 @@ const Sidebar = () => {
                                     link={'/clients?p=Клиенты'}
                                     root={'/clients'}
                                     icon={<FiUsers/>}/>
+                                {/*<SidebarItem*/}
+                                {/*    labelHide={isHide}*/}
+                                {/*    name={'Заказы с мобильных устройств'}*/}
+                                {/*    link={'/orders?p=Заказы'}*/}
+                                {/*    root={'/orders'}*/}
+                                {/*    icon={<OrderIcon size={22}/>}/>*/}
                                 <SidebarItem
                                     labelHide={isHide}
                                     name={'Заказы'}
